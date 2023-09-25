@@ -1,6 +1,6 @@
 package View;
 
-import Controller.PasswordHashingAndSaving;
+import Controller.LoginAndRegistrationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ class LoginPanel extends JPanel {
     private JButton loginButton;
     private JButton registerButton;
 
-    PasswordHashingAndSaving phase = new PasswordHashingAndSaving();
+    LoginAndRegistrationManager phase = new LoginAndRegistrationManager();
 
     public LoginPanel() {
         setLayout(new FlowLayout());

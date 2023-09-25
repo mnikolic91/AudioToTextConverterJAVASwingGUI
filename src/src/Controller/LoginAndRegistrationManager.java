@@ -9,13 +9,17 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PasswordHashingAndSaving {
+/*
+    * This class is used for hashing the password and saving it to the text file
+ */
 
+public class LoginAndRegistrationManager {
+    //initiation of a new object of UserInfo class
     private UserInfo userInfo = new UserInfo();
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    //metoda koja generira random salt i sprema ga u varijablu salt
+    //generateRandomString method that generates random string of 10 characters which is used to create a unique "salt" for each user
     private void generateRandomString() {
         SecureRandom random = new SecureRandom();
         StringBuilder salt = new StringBuilder();
@@ -25,18 +29,15 @@ public class PasswordHashingAndSaving {
             char randomChar = ALPHABET.charAt(randomIndex);
             salt.append(randomChar);
         }
-
         userInfo.setSalt(salt.toString());
         //System.out.println(userInfo.getSalt());
     }
 
-    //doHashing metoda koja prima string i vraća hashiranu vrijednost uz pomoć MD5 algoritma
+    //doHashing method that hashes the password and salt and saves it to the userInfo object
     public String doHashing(String password) {
-
         generateRandomString();
         userInfo.setPassword(password + userInfo.getSalt());
         System.out.println("Hashed password control: " + userInfo.getPassword());
-
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(userInfo.getPassword().getBytes());
@@ -45,17 +46,14 @@ public class PasswordHashingAndSaving {
             for (byte b : digest) {
                 sb.append(String.format("%02x", b & 0xff));
             }
-
             userInfo.setPassword(sb.toString());
-
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
         return "";
     }
 
+    //doesNicknameExists method that checks if the nickname already exists in the text file
     public boolean doesNicknameExists(String nickname) {
         try (BufferedReader reader = new BufferedReader(new FileReader("hashing.txt"))) {
             String line;
@@ -63,15 +61,16 @@ public class PasswordHashingAndSaving {
                 String[] parts = line.split(",");
                 if (parts.length > 0 && parts[0].equals(nickname)) {
                     System.out.println("Nickname already exists!");
-                    return true; // Nickname već postoji u datoteci
+                    return true; //Nickname is found in the text file
                 }
             }return false;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; // Nickname nije pronađen u datoteci
+        return false; // Nickname is not found in the text file
     }
 
+    //saveHashAndSaltToTextFile method that saves the nickname, hashed password and salt to the text file
     public void saveHashAndSaltToTextFile(String nickname) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("hashing.txt", true))) {
                 String line = nickname + "," + userInfo.getPassword() + "," + userInfo.getSalt();
@@ -82,6 +81,7 @@ public class PasswordHashingAndSaving {
             }
         }
 
+    //readHashAndSaltFromTextFile method that reads the nickname, hashed password and salt from the text file
     public Map<String, String> readHashAndSaltFromTextFile(String nickname) {
         Map<String, String> userData = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("hashing.txt"))) {

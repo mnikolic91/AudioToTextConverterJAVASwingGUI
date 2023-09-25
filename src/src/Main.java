@@ -1,5 +1,3 @@
-import Controller.PasswordHashingAndSaving;
-import Model.UserInfo;
 import View.MainWindow;
 
 public class Main {
