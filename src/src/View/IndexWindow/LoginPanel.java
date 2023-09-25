@@ -36,7 +36,7 @@ class LoginPanel extends JPanel {
 
         setBorder(BorderFactory.createLineBorder(Color.white));
 
-        //dodavanje actionlistenera za register field
+        //action listener for the registration button
         registerButton.addActionListener(e -> {
             nickname = nicknameField.getText();
             password = passwordField.getText();

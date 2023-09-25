@@ -103,7 +103,6 @@ public class LoginAndRegistrationManager {
         return userData; // Vrati prazan Map ako nickname nije pronađen
     }
 
-
     //compareHashedPassword method that compares the hashed password from the text file with the hashed password from the login window
     public boolean compareHashedPassword(String nickname, String password) {
         Map<String, String> userData = readHashAndSaltFromTextFile(nickname);
@@ -123,7 +122,4 @@ public class LoginAndRegistrationManager {
             return false;
         }
     }
-
-
-
 }
