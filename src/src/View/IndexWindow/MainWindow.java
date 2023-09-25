@@ -1,7 +1,6 @@
-package View;
+package View.IndexWindow;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainWindow {
     private JFrame frame;
@@ -12,7 +11,7 @@ public class MainWindow {
     public MainWindow() {
         frame = new JFrame("Audio to Text Converter");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 250);
+        frame.setSize(650, 250);
 
 
 
@@ -30,7 +29,7 @@ public class MainWindow {
         // Dodavanje LinkInputPanel
         audioInfoInputPanel = new AudioInfoInputPanel();
         mainPanel.add(audioInfoInputPanel);
-        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 100));
+        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(25, 100, 25, 200));
 
         convertPanel = new ConvertPanel();
         mainPanel.add(convertPanel);

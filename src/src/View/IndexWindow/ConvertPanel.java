@@ -1,4 +1,4 @@
-package View;
+package View.IndexWindow;
 
 import javax.swing.*;
 import java.awt.*;

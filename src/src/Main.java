@@ -1,4 +1,4 @@
-import View.MainWindow;
+import View.IndexWindow.MainWindow;
 
 public class Main {
     public static void main(String[] args) {

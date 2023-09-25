@@ -20,7 +20,7 @@ public class LoginAndRegistrationManager {
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     //generateRandomString method that generates random string of 10 characters which is used to create a unique "salt" for each user
-    private void generateRandomString() {
+    public void generateRandomString() {
         SecureRandom random = new SecureRandom();
         StringBuilder salt = new StringBuilder();
 
@@ -35,7 +35,6 @@ public class LoginAndRegistrationManager {
 
     //doHashing method that hashes the password and salt and saves it to the userInfo object
     public String doHashing(String password) {
-        generateRandomString();
         userInfo.setPassword(password + userInfo.getSalt());
         System.out.println("Hashed password control: " + userInfo.getPassword());
         try {
@@ -47,6 +46,8 @@ public class LoginAndRegistrationManager {
                 sb.append(String.format("%02x", b & 0xff));
             }
             userInfo.setPassword(sb.toString());
+            System.out.println("Hashed password: " + userInfo.getPassword());
+            return userInfo.getPassword();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -101,5 +102,28 @@ public class LoginAndRegistrationManager {
         }
         return userData; // Vrati prazan Map ako nickname nije pronađen
     }
+
+
+    //compareHashedPassword method that compares the hashed password from the text file with the hashed password from the login window
+    public boolean compareHashedPassword(String nickname, String password) {
+        Map<String, String> userData = readHashAndSaltFromTextFile(nickname);
+        String hashedPassword = userData.get("hashedPassword");
+        System.out.println("Hashed password from text file: " + hashedPassword);
+        String salt = userData.get("salt");
+        userInfo.setSalt(salt);
+        System.out.println("Salt from text file: " + userInfo.getSalt());
+        System.out.println("Password from login window: " + password);
+        String hashedPasswordFromLoginWindow = doHashing(password);
+        System.out.println("Hashed password from login window: " + hashedPasswordFromLoginWindow);
+        if (hashedPassword.equals(hashedPasswordFromLoginWindow)) {
+            System.out.println("Password is correct!");
+            return true;
+        } else {
+            System.out.println("Password is incorrect!");
+            return false;
+        }
+    }
+
+
 
 }
