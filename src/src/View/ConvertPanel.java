@@ -19,7 +19,7 @@ public class ConvertPanel extends JPanel {
         convertButton = new JButton("Convert");
         timeLabel = new JLabel("Time of Convert: ");
         bottomPanel.add(convertButton);
-        bottomPanel.add(timeLabel);
+
         add(bottomPanel);
 
         setBorder(BorderFactory.createLineBorder(Color.white));
@@ -28,6 +28,7 @@ public class ConvertPanel extends JPanel {
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                bottomPanel.add(timeLabel);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
                 String time = dateFormat.format(new Date());
                 timeLabel.setText("Time of Convert: " + time);

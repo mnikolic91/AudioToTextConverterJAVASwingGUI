@@ -30,7 +30,7 @@ public class MainWindow {
         // Dodavanje LinkInputPanel
         audioInfoInputPanel = new AudioInfoInputPanel();
         mainPanel.add(audioInfoInputPanel);
-        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 10));
+        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 100));
 
         convertPanel = new ConvertPanel();
         mainPanel.add(convertPanel);
