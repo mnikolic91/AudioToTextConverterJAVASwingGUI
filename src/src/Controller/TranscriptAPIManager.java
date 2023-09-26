@@ -1,9 +1,8 @@
 package Controller;
 
-import Model.Converter;
+import Model.Transcript;
 import com.google.gson.Gson;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,9 +16,9 @@ import java.util.Map;
  * Glavna klasa u Controlleru
  */
 
-public class MainController {
+public class TranscriptAPIManager {
 
-    Converter transcript = new Converter();
+    Transcript transcript = new Transcript();
 
     /**
      * metoda koja salje zahtjev AssemblyAI API-ju, dohvaca i transcriptira audio u tekstualni format, te ga ispisuje u lokalni text file
@@ -65,7 +64,7 @@ public class MainController {
         HttpResponse<String> postResponse = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
         //System.out.println("post response "+postResponse);
         //System.out.println("body "+ postResponse.body());
-        transcript = gson.fromJson(postResponse.body(), Converter.class);
+        transcript = gson.fromJson(postResponse.body(), Transcript.class);
         //System.out.println("transcript "+transcript.toString());
         //System.out.println(transcript.getId());
 
@@ -83,7 +82,7 @@ public class MainController {
         //petlja se prekida kad status procesa bude zavrsen
         while (true) {
             HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-            transcript = gson.fromJson(getResponse.body(), Converter.class);
+            transcript = gson.fromJson(getResponse.body(), Transcript.class);
             System.out.println(transcript.getStatus());
 
             if ("completed".equals(transcript.getStatus())) {
@@ -105,69 +104,6 @@ public class MainController {
 
         //provjera da li smo dohvatili tekst
         //System.out.println(transcript.getText());
-    }
-
-
-    /**
-     * metoda koja ispisuje sve fileove u folderu
-     *
-     * @param name
-     * @param listField
-     */
-    public void listFilesInFolder(String name, JList listField) {
-
-
-        //folder objekt kojem pridruzujemo putanju
-        File folder = new File(transcript.getCurrentUsersHomeDir() + "\\transcripts\\" + name + "\\");
-        //provjera da li folder postoji
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-        //pozivamo DefaultListModel za JList
-        DefaultListModel model = new DefaultListModel();
-        //petlja koja puni model
-        for (File f : folder.listFiles()) {
-            model.addElement(f.getName());
-        }
-        //ispis modela u JListi
-        listField.setModel(model);
-    }
-
-    /**
-     * metoda koja koristi BufferedReader kojom ispisujemo tekst u JTextPane
-     *
-     * @param topics
-     * @param filename
-     * @param name
-     */
-    public void readTextInGUI(String topics, String filename, JTextPane name) {
-
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(transcript.getCurrentUsersHomeDir() + "\\transcripts\\" + topics + "\\" + filename));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-            String everything = sb.toString();
-            name.setText(everything);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 }
 

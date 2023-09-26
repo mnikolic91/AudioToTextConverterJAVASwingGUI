@@ -122,4 +122,15 @@ public class LoginAndRegistrationManager {
             return false;
         }
     }
+
+    //method that changes user status to logged in
+    public void changeUserStatusToLoggedIn() {
+        userInfo.setLoggedIn(true);
+    }
+
+
+    //method that checks if the user is logged in
+    public boolean isUserLoggedIn() {
+        return userInfo.isLoggedIn();
+    }
 }

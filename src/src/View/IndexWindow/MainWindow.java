@@ -10,7 +10,7 @@ public class MainWindow {
     public MainWindow() {
         frame = new JFrame("Audio to Text Converter");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(650, 250);
+        frame.setSize(650, 350);
 
         // Kreiranje i postavljanje glavnog panela
         JPanel mainPanel = new JPanel();
@@ -23,7 +23,7 @@ public class MainWindow {
         // Dodavanje LinkInputPanel
         audioInfoInputPanel = new AudioInputPanel();
         mainPanel.add(audioInfoInputPanel);
-        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(25, 100, 25, 200));
+        audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(60, 100, 25, 100));
 
 
         // Postavljanje glavnog panela u okvir

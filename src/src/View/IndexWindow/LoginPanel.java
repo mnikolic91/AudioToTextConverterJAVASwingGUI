@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class LoginPanel extends JPanel {
+
     private JTextField nicknameField;
     private JPasswordField passwordField;
     private JButton loginButton;
@@ -69,12 +70,14 @@ class LoginPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Nickname does not exist!");
             } else if (phase.compareHashedPassword(nickname, password)) {
                 JOptionPane.showMessageDialog(null, "You have successfully logged in!");
+                phase.changeUserStatusToLoggedIn();
                 loggedIn.setText("Hello, " + nickname + "!");
                 loggedIn.setVisible(true);
                 nicknameField.setText("");
                 passwordField.setText("");
                 loginButton.setEnabled(false);
                 registerButton.setEnabled(false);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Password is incorrect!");
             }

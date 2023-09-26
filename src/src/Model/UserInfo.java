@@ -5,8 +5,7 @@ public class UserInfo {
     private String nickname;
     private String password;
     private String salt;
-
-
+    private static boolean loggedIn;
 
     public String getNickname() {
         return nickname;
@@ -20,6 +19,10 @@ public class UserInfo {
         return salt;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -31,5 +34,9 @@ public class UserInfo {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }

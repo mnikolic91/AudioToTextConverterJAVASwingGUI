@@ -4,7 +4,7 @@ package Model;
  * Klasa koja drzi sve koristene informacije
  */
 
-public class Converter {
+public class Transcript {
 
     //registracija korisnika koji žele transformirati audio u tekst
     //korisnik vidi ime audia(link) koji je transformirao, vrijeme kad je započeo transformaciju i koliko je dugo trajala, te tekst transfomracije
@@ -16,7 +16,7 @@ public class Converter {
     private String id;
     private String status;
     private String text;
-    private String folderPath;
+
 
     //direktorij u kojem se trenutno nalazimo - varijabla nam treba kod spremanja i citanja fileova
     String currentUsersHomeDir = System.getProperty("user.dir");
@@ -54,13 +54,6 @@ public class Converter {
         this.text = text;
     }
 
-    public String getFolderPath() {
-        return folderPath;
-    }
-
-    public void setFolderPath(String folderPath) {
-        this.folderPath = folderPath;
-    }
 
     public String getCurrentUsersHomeDir() {
         return currentUsersHomeDir;
