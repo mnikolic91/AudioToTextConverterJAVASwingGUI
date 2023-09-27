@@ -80,6 +80,7 @@ class LoginPanel extends JPanel {
 
             } else {
                 JOptionPane.showMessageDialog(null, "Password is incorrect!");
+                passwordField.setText("");
             }
         });
 

@@ -57,7 +57,6 @@ public class AudioInputPanel extends JPanel {
         add(bottomPanel);
 
 
-
         // action listener for the convert button
         convertButton.addActionListener(new ActionListener() {
             @Override
