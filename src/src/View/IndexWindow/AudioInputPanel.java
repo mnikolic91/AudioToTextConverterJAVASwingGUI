@@ -20,6 +20,9 @@ public class AudioInputPanel extends JPanel {
     private JButton convertButton;
     private JLabel timeLabel;
     private JLabel iconLabel;
+    private long startTime;
+    private long endTime;
+    private long conversionDuration;
     private TranscriptAPIManager controller= new TranscriptAPIManager();
     private LoginAndRegistrationManager phase = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
@@ -53,6 +56,8 @@ public class AudioInputPanel extends JPanel {
         add(nameTranscript);
         add(bottomPanel);
 
+
+
         // action listener for the convert button
         convertButton.addActionListener(new ActionListener() {
             @Override
@@ -67,10 +72,17 @@ public class AudioInputPanel extends JPanel {
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
                         aim.setAudioInfo(nameTranscriptText, linkInputText);
                         aim.saveAudioInfoToFile();
+                        aim.incrementAudioStats(linkInputText);
+                        aim.saveAudioStatsToFile();
+                        aim.loadAudioStatsFromFile();
+
                         bottomPanel.add(timeLabel);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
                         String time = dateFormat.format(new Date());
                         timeLabel.setText("Time of Convert: " + time);
+
+                        startTime = System.currentTimeMillis();
+                        aim.setStartTime(startTime);
 
                         Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
@@ -78,6 +90,14 @@ public class AudioInputPanel extends JPanel {
                             public void run() {
                                 try {
                                     controller.postGetTrans(nameTranscriptText, linkInputText);
+
+                                    endTime = System.currentTimeMillis();
+                                    aim.setEndTime(endTime);
+
+                                    conversionDuration = (endTime - startTime) / 1000;
+                                    System.out.println("Conversion Duration: " + conversionDuration + " seconds");
+                                    aim.setConversionDuration(conversionDuration);
+
                                 } catch (URISyntaxException ex) {
                                     ex.printStackTrace();
                                 } catch (IOException ex) {

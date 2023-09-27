@@ -7,11 +7,11 @@ public class AudioInfo {
 
     private String audio_url;
     private String audioName;
-    private SimpleDateFormat startTime;
-    private SimpleDateFormat endTime;
-    private static HashMap<String, String> audioInfo = new HashMap<String, String>();
-    private HashMap<String, Integer> audioStats = new HashMap<String, Integer>();
-
+    private long startTime;
+    private long endTime;
+    private long conversionDuration;
+    private HashMap<String, String> audioInfo = new HashMap<String, String>();
+    private static HashMap<String, Integer> audioStats = new HashMap<String, Integer>();
 
 
     public String getAudio_url() {
@@ -30,20 +30,28 @@ public class AudioInfo {
         this.audioName = audioName;
     }
 
-    public SimpleDateFormat getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(SimpleDateFormat startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public SimpleDateFormat getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(SimpleDateFormat endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    public long getConversionDuration() {
+        return conversionDuration;
+    }
+
+    public void setConversionDuration(long conversionDuration) {
+        this.conversionDuration = conversionDuration;
     }
 
     public void addAudioInfo(String url, String name) {

@@ -30,13 +30,11 @@ public class LoginAndRegistrationManager {
             salt.append(randomChar);
         }
         userInfo.setSalt(salt.toString());
-        //System.out.println(userInfo.getSalt());
     }
 
     //doHashing method that hashes the password and salt and saves it to the userInfo object
     public String doHashing(String password) {
         userInfo.setPassword(password + userInfo.getSalt());
-        System.out.println("Hashed password control: " + userInfo.getPassword());
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(userInfo.getPassword().getBytes());
@@ -93,27 +91,22 @@ public class LoginAndRegistrationManager {
                     userData.put("nickname", parts[0]);
                     userData.put("hashedPassword", parts[1]);
                     userData.put("salt", parts[2]);
-                    System.out.println(userData);
                     return userData;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return userData; // Vrati prazan Map ako nickname nije pronađen
+        return userData; // Returns empty map if the nickname is not found in the text file
     }
 
     //compareHashedPassword method that compares the hashed password from the text file with the hashed password from the login window
     public boolean compareHashedPassword(String nickname, String password) {
         Map<String, String> userData = readHashAndSaltFromTextFile(nickname);
         String hashedPassword = userData.get("hashedPassword");
-        System.out.println("Hashed password from text file: " + hashedPassword);
         String salt = userData.get("salt");
         userInfo.setSalt(salt);
-        System.out.println("Salt from text file: " + userInfo.getSalt());
-        System.out.println("Password from login window: " + password);
         String hashedPasswordFromLoginWindow = doHashing(password);
-        System.out.println("Hashed password from login window: " + hashedPasswordFromLoginWindow);
         if (hashedPassword.equals(hashedPasswordFromLoginWindow)) {
             System.out.println("Password is correct!");
             return true;
