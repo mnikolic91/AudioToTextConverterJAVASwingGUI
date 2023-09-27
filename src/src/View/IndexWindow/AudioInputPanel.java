@@ -1,5 +1,6 @@
 package View.IndexWindow;
 
+import Controller.AudioInputManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.TimerTask;
 import java.util.Timer;
 
-class AudioInputPanel extends JPanel {
+public class AudioInputPanel extends JPanel {
     private JTextField linkInput;
     private JTextField nameTranscript;
     private JButton convertButton;
@@ -21,6 +22,7 @@ class AudioInputPanel extends JPanel {
     private JLabel iconLabel;
     private TranscriptAPIManager controller= new TranscriptAPIManager();
     private LoginAndRegistrationManager phase = new LoginAndRegistrationManager();
+    private AudioInputManager aim = new AudioInputManager();
 
     public AudioInputPanel() {
 
@@ -60,8 +62,11 @@ class AudioInputPanel extends JPanel {
                     String nameTranscriptText = nameTranscript.getText();
                     String linkInputText = linkInput.getText();
 
+
                     // check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
+                        aim.setAudioInfo(nameTranscriptText, linkInputText);
+                        aim.saveAudioInfoToFile();
                         bottomPanel.add(timeLabel);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
                         String time = dateFormat.format(new Date());

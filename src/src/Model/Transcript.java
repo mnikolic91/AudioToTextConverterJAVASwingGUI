@@ -1,16 +1,13 @@
 package Model;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+
 /**
  * Klasa koja drzi sve koristene informacije
  */
 
 public class Transcript {
-
-    //registracija korisnika koji žele transformirati audio u tekst
-    //korisnik vidi ime audia(link) koji je transformirao, vrijeme kad je započeo transformaciju i koliko je dugo trajala, te tekst transfomracije
-    //svaki audio link ima svoj unikatni hash kod koji se veže uz korisnika
-    //uvesti pretraživanje po hash kodu linka i ispis svih korisnika koji su transformirali taj audio
-
 
     private String audio_url;
     private String id;
