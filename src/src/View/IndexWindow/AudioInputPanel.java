@@ -32,7 +32,6 @@ public class AudioInputPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-
         Icon icon = new ImageIcon("misc/time_icon.png");
 
         linkInput = new JTextField(35);
@@ -57,36 +56,24 @@ public class AudioInputPanel extends JPanel {
         add(nameTranscript);
         add(bottomPanel);
 
-
-        // action listener for the convert button
+        // Action listener for the convert button
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                //checks if user is logged in
+                // Check if user is logged in
                 if (lorm.isUserLoggedIn()) {
                     String nameTranscriptText = nameTranscript.getText();
                     String linkInputText = linkInput.getText();
 
-
-
-                    // check if both fields are filled in
+                    // Check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
-
-                        //check if linkInputText key exists in AudioInfoMap.txt
-                        if (aim.checkIfAudioUrlExists(linkInputText)) {
-                            aim.addUserName(lorm.getUserNickname());
-                            aim.addAudioInfo();
-                            aim.saveAudioInfoHashMapToFile(aim.getAudioInfoHashMap());
-                        }
-                        else {
+                        // Check if linkInputText key exists in AudioInfoMap.txt
+                        if (aim.checkIfAudioUrlExists(linkInputText)==false) {
                             aim.setAudioUrl(linkInputText);
                             aim.setAudioName(nameTranscriptText);
                             aim.setUniqueValue(aim.generateUniqueValue());
                             aim.setAudioTextPath();
                             aim.addUserName(lorm.getUserNickname());
-
-
 
                             bottomPanel.add(timeLabel);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -110,9 +97,12 @@ public class AudioInputPanel extends JPanel {
                                         System.out.println("Conversion Duration: " + conversionDuration + " seconds");
                                         aim.setConversionDuration(conversionDuration);
                                         aim.addAudioInfo();
-                                        aim.saveJsonFile(aim.getAudioInfoHashMap());
-
-
+                                        // Use the appropriate method to save audio info based on whether it's a new entry or not
+                                        if (aim.checkIfAudioUrlExists(linkInputText)) {
+                                            aim.saveAudioInfoHashMapToFile(aim.getAudioInfoHashMap());
+                                        } else {
+                                            aim.saveJsonFile(aim.getAudioInfoHashMap());
+                                        }
                                     } catch (URISyntaxException ex) {
                                         ex.printStackTrace();
                                     } catch (IOException ex) {
@@ -121,7 +111,12 @@ public class AudioInputPanel extends JPanel {
                                         ex.printStackTrace();
                                     }
                                 }
-                            }, 500); // 500 miliseconds delay
+                            }, 500); // 500 milliseconds delay
+                        } else {
+                            // If the key already exists, just add the user name and update
+                            aim.addUserName(lorm.getUserNickname());
+                            aim.addAudioInfo();
+                            aim.saveAudioInfoHashMapToFile(aim.getAudioInfoHashMap());
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Both Name Transcript and Link Input must be filled in to convert.");
@@ -133,5 +128,3 @@ public class AudioInputPanel extends JPanel {
         });
     }
 }
-
-
