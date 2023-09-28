@@ -1,17 +1,29 @@
 package Model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class AudioInfo {
 
-    private String audio_url;
+    private static int uniqueValue;
+    private static String audio_url;
     private static String audioName;
     private long startTime;
     private long endTime;
     private long conversionDuration;
-    private static String[] userNames;
+    private List<String> userNames = new ArrayList<>();
     private static String audioTextPath;
 
+
+
+    public void setUniqueValue(int uniqueValue) {
+        this.uniqueValue = uniqueValue;
+    }
+
+    public static int getUniqueValue() {
+        return uniqueValue;
+    }
 
     public String getAudio_url() {
         return audio_url;
@@ -53,17 +65,16 @@ public class AudioInfo {
         this.conversionDuration = conversionDuration;
     }
 
-    public String[] getUserNames() {
+    public List<String> getUserNames() {
         return userNames;
     }
 
-    public void setUserNames(String[] userNames) {
+    public void setUserNames(List<String> userNames) {
         this.userNames = userNames;
     }
 
-
-    public void setAudioTextPath(String audioLink) {
-        this.audioTextPath = ".\\transcripts\\" + audioLink + ".txt";
+    public void setAudioTextPath() {
+        this.audioTextPath = ".\\transcripts\\" + uniqueValue + ".txt";
     }
 
 
@@ -74,7 +85,7 @@ public class AudioInfo {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", conversionDuration=" + conversionDuration +
-                ", userNames=" + Arrays.toString(userNames) +
+                ", userNames=" + userNames +
                 ", audioTextPath='" + audioTextPath + '\'' +
                 '}';
     }

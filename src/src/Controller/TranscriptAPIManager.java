@@ -19,13 +19,14 @@ import java.util.Map;
 
 public class TranscriptAPIManager {
 
+    private String filePath = ".\\transcripts\\";
+
     Transcript transcript = new Transcript();
     AudioInfo audioInfo = new AudioInfo();
 
     /**
      * metoda koja salje zahtjev AssemblyAI API-ju, dohvaca i transcriptira audio u tekstualni format, te ga ispisuje u lokalni text file
      *
-     * @param name
      * @param url
      * @throws URISyntaxException
      * @throws IOException
@@ -33,7 +34,7 @@ public class TranscriptAPIManager {
      * @see <a href="https://www.youtube.com/watch?v=9oq7Y8n1t00&ab_channel=CodingwithJohn">Coding with John</a>
      * @see <a href="https://www.assemblyai.com/">Assembly AI</a>
      */
-    public void postGetTrans(String name, String url) throws URISyntaxException, IOException, InterruptedException {
+    public void postGetTrans(String url) throws URISyntaxException, IOException, InterruptedException {
         //novi objekt klase InfoGetSet koja nam olaksava pristup json elementima API-ja
 
         //postavljamo audio URL koji zelimo transkribirati
@@ -89,7 +90,7 @@ public class TranscriptAPIManager {
 
             if ("completed".equals(transcript.getStatus())) {
                 //otvaramo buffered write gdje cemo zapisivati nas transcript
-                BufferedWriter writer = new BufferedWriter(new FileWriter(".\\transcripts\\" + audioInfo.getAudioName() + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + audioInfo.getUniqueValue()+".txt"));
                 System.out.println(audioInfo.getAudioName());
                 writer.write(transcript.getText());
                 //zatvaramo buffered writer

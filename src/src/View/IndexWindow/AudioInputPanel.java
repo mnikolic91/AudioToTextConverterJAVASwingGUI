@@ -3,6 +3,7 @@ package View.IndexWindow;
 import Controller.AudioInputManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -71,8 +72,10 @@ public class AudioInputPanel extends JPanel {
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
                        aim.setAudioUrl(linkInputText);
                         aim.setAudioName(nameTranscriptText);
-                        aim.setAudioTextPath(linkInputText);
-                        aim.addUserNameToArray(lorm.getUserNickname());
+                        aim.setUniqueValue(aim.generateUniqueValue());
+                        aim.setAudioTextPath();
+                        aim.addUserName(lorm.getUserNickname());
+
 
                         bottomPanel.add(timeLabel);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -87,7 +90,7 @@ public class AudioInputPanel extends JPanel {
                             @Override
                             public void run() {
                                 try {
-                                    tapim.postGetTrans(nameTranscriptText, linkInputText);
+                                    tapim.postGetTrans(linkInputText);
 
                                     endTime = System.currentTimeMillis();
                                     aim.setEndTime(endTime);
