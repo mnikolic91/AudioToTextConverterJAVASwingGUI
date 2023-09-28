@@ -15,7 +15,7 @@ class LoginPanel extends JPanel {
     private String nickname;
     private String password;
 
-    LoginAndRegistrationManager phase = new LoginAndRegistrationManager();
+    LoginAndRegistrationManager larm = new LoginAndRegistrationManager();
 
     public LoginPanel() {
         setLayout(new FlowLayout());
@@ -43,13 +43,13 @@ class LoginPanel extends JPanel {
             password = passwordField.getText();
             if (nickname.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter nickname and password!");
-            } else if (phase.doesNicknameExists(nickname)) {
+            } else if (larm.doesNicknameExists(nickname)) {
                 JOptionPane.showMessageDialog(null, "Nickname already exists!");
             }
             else {
-                phase.generateRandomString();
-                phase.doHashing(password);
-                phase.saveHashAndSaltToTextFile(nickname);
+                larm.generateRandomString();
+                larm.doHashing(password);
+                larm.saveHashAndSaltToTextFile(nickname);
                 nicknameField.setText("");
                 passwordField.setText("");
                 JOptionPane.showMessageDialog(null, "You have successfully registered!");
@@ -66,11 +66,12 @@ class LoginPanel extends JPanel {
             password = passwordField.getText();
             if (nickname.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter nickname and password!");
-            } else if (!phase.doesNicknameExists(nickname)) {
+            } else if (!larm.doesNicknameExists(nickname)) {
                 JOptionPane.showMessageDialog(null, "Nickname does not exist!");
-            } else if (phase.compareHashedPassword(nickname, password)) {
+            } else if (larm.compareHashedPassword(nickname, password)) {
                 JOptionPane.showMessageDialog(null, "You have successfully logged in!");
-                phase.changeUserStatusToLoggedIn();
+                larm.changeUserStatusToLoggedIn();
+                larm.setUserNickname(nickname);
                 loggedIn.setText("Hello, " + nickname + "!");
                 loggedIn.setVisible(true);
                 nicknameField.setText("");
@@ -83,6 +84,5 @@ class LoginPanel extends JPanel {
                 passwordField.setText("");
             }
         });
-
     }
 }

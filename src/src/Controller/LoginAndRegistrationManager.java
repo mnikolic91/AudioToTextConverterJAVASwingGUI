@@ -126,4 +126,24 @@ public class LoginAndRegistrationManager {
     public boolean isUserLoggedIn() {
         return userInfo.isLoggedIn();
     }
+
+    //method that checks if username is logged in and returns the user nickname
+    public String getLoggedInUserNickname() {
+        if (userInfo.isLoggedIn()) {
+            return userInfo.getNickname();
+        } else {
+            return null;
+        }
+    }
+
+    //method that gets the user nickname
+    public String getUserNickname() {
+        return userInfo.getNickname();
+    }
+
+    //mthod that sets the user nickname
+    public void setUserNickname(String nickname) {
+        userInfo.setNickname(nickname);
+    }
+
 }

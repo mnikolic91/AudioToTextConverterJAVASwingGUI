@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.AudioInfo;
 import Model.Transcript;
 import com.google.gson.Gson;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 public class TranscriptAPIManager {
 
     Transcript transcript = new Transcript();
+    AudioInfo audioInfo = new AudioInfo();
 
     /**
      * metoda koja salje zahtjev AssemblyAI API-ju, dohvaca i transcriptira audio u tekstualni format, te ga ispisuje u lokalni text file
@@ -87,7 +89,8 @@ public class TranscriptAPIManager {
 
             if ("completed".equals(transcript.getStatus())) {
                 //otvaramo buffered write gdje cemo zapisivati nas transcript
-                BufferedWriter writer = new BufferedWriter(new FileWriter(transcript.getCurrentUsersHomeDir() + "\\transcripts\\" + name + ".txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(".\\transcripts\\" + audioInfo.getAudioName() + ".txt"));
+                System.out.println(audioInfo.getAudioName());
                 writer.write(transcript.getText());
                 //zatvaramo buffered writer
                 writer.close();

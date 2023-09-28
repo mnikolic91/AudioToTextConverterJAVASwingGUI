@@ -23,8 +23,8 @@ public class AudioInputPanel extends JPanel {
     private long startTime;
     private long endTime;
     private long conversionDuration;
-    private TranscriptAPIManager controller= new TranscriptAPIManager();
-    private LoginAndRegistrationManager phase = new LoginAndRegistrationManager();
+    private TranscriptAPIManager tapim = new TranscriptAPIManager();
+    private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
 
     public AudioInputPanel() {
@@ -62,18 +62,17 @@ public class AudioInputPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //checks if user is logged in
-                if (phase.isUserLoggedIn()) {
+                if (lorm.isUserLoggedIn()) {
                     String nameTranscriptText = nameTranscript.getText();
                     String linkInputText = linkInput.getText();
 
 
                     // check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
-                        aim.setAudioInfo(nameTranscriptText, linkInputText);
-                        aim.saveAudioInfoToFile();
-                        aim.incrementAudioStats(linkInputText);
-                        aim.saveAudioStatsToFile();
-                        aim.loadAudioStatsFromFile();
+                       aim.setAudioUrl(linkInputText);
+                        aim.setAudioName(nameTranscriptText);
+                        aim.setAudioTextPath(linkInputText);
+                        aim.addUserNameToArray(lorm.getUserNickname());
 
                         bottomPanel.add(timeLabel);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -88,7 +87,7 @@ public class AudioInputPanel extends JPanel {
                             @Override
                             public void run() {
                                 try {
-                                    controller.postGetTrans(nameTranscriptText, linkInputText);
+                                    tapim.postGetTrans(nameTranscriptText, linkInputText);
 
                                     endTime = System.currentTimeMillis();
                                     aim.setEndTime(endTime);
@@ -96,6 +95,8 @@ public class AudioInputPanel extends JPanel {
                                     conversionDuration = (endTime - startTime) / 1000;
                                     System.out.println("Conversion Duration: " + conversionDuration + " seconds");
                                     aim.setConversionDuration(conversionDuration);
+                                    aim.addAudioInfo();
+
 
                                 } catch (URISyntaxException ex) {
                                     ex.printStackTrace();
@@ -106,6 +107,7 @@ public class AudioInputPanel extends JPanel {
                                 }
                             }
                         }, 500); // 500 miliseconds delay
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Both Name Transcript and Link Input must be filled in to convert.");
                     }

@@ -1,16 +1,16 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.Arrays;
 
 public class AudioInfo {
 
     private String audio_url;
-    private String audioName;
+    private static String audioName;
     private long startTime;
     private long endTime;
     private long conversionDuration;
-    private HashMap<String, String> audioInfo = new HashMap<String, String>();
-    private static HashMap<String, Integer> audioStats = new HashMap<String, Integer>();
+    private static String[] userNames;
+    private static String audioTextPath;
 
 
     public String getAudio_url() {
@@ -53,23 +53,29 @@ public class AudioInfo {
         this.conversionDuration = conversionDuration;
     }
 
-    public void addAudioInfo(String url, String name) {
-        audioInfo.put(url, name);
+    public String[] getUserNames() {
+        return userNames;
     }
 
-    public HashMap<String, String> getAudioInfo() {
-        return audioInfo;
+    public void setUserNames(String[] userNames) {
+        this.userNames = userNames;
     }
 
-    public void setAudioInfo(HashMap<String, String> audioInfo) {
-        this.audioInfo = audioInfo;
+
+    public void setAudioTextPath(String audioLink) {
+        this.audioTextPath = ".\\transcripts\\" + audioLink + ".txt";
     }
 
-    public HashMap<String, Integer> getAudioStats() {
-        return audioStats;
-    }
 
-    public void setAudioStats(HashMap<String, Integer> audioStats) {
-        this.audioStats = audioStats;
+    @Override
+    public String toString() {
+        return "AudioInfo{" +
+                "audio_url='" + audio_url + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", conversionDuration=" + conversionDuration +
+                ", userNames=" + Arrays.toString(userNames) +
+                ", audioTextPath='" + audioTextPath + '\'' +
+                '}';
     }
 }

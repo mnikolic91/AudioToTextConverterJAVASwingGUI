@@ -16,7 +16,6 @@ public class Transcript {
 
 
     //direktorij u kojem se trenutno nalazimo - varijabla nam treba kod spremanja i citanja fileova
-    String currentUsersHomeDir = System.getProperty("user.dir");
 
 
     public String getAudio_url() {
@@ -52,11 +51,4 @@ public class Transcript {
     }
 
 
-    public String getCurrentUsersHomeDir() {
-        return currentUsersHomeDir;
-    }
-
-    public void setCurrentUsersHomeDir(String currentUsersHomeDir) {
-        this.currentUsersHomeDir = currentUsersHomeDir;
-    }
 }

@@ -2,7 +2,7 @@ package Model;
 
 public class UserInfo {
 
-    private String nickname;
+    private static String nickname;
     private String password;
     private String salt;
     private static boolean loggedIn;
