@@ -2,12 +2,8 @@ package Controller;
 
 import Model.AudioInfo;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.*;
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class AudioInputManager {
 
@@ -77,7 +73,7 @@ public class AudioInputManager {
         }
     }
 
-    public static void saveAudioInfoHashMapToFile(Map<String, AudioInfo> audioInfoHashMap) {
+    /*public static void saveAudioInfoHashMapToFile(Map<String, AudioInfo> audioInfoHashMap) {
         Map<String, AudioInfo> existingData = loadJsonFile();
 
 
@@ -90,7 +86,6 @@ public class AudioInputManager {
                 existingData.put(key, newValue);
             }
         }
-
         saveJsonFile(existingData);
     }
 
@@ -105,7 +100,7 @@ public class AudioInputManager {
     }
 
     public static void saveJsonFile(Map<String, AudioInfo> data) {
-        try (Writer writer = new FileWriter("AudioInfoMap.txt")) {
+        try (Writer writer = new FileWriter("AudioInfoMap.txt", true)) {
             gson.toJson(data, writer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,9 +116,5 @@ public class AudioInputManager {
             }
         }
         return false;
-    }
-
-
-
-
+    }*/
 }
