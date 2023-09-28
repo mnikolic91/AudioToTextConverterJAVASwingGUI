@@ -1,8 +1,12 @@
+import Controller.AudioInputManager;
 import View.IndexWindow.MainWindow;
 
 public class Main {
     public static void main(String[] args) {
         MainWindow main = new MainWindow();
+
+
+
 
         //registracija korisnika koji žele transformirati audio u tekst DONE
         //korisnik vidi ime audia(link) koji je transformirao, vrijeme kad je započeo transformaciju i koliko je dugo trajala, te tekst transfomracije

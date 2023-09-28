@@ -2,14 +2,26 @@ package Controller;
 
 import Model.AudioInfo;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AudioInputManager {
 
-    private Gson gson = new Gson();
+    private static Gson gson = new Gson();
     private HashMap<String, AudioInfo> audioInfoHashMap = new HashMap<>();
     private AudioInfo audioInfo = new AudioInfo();
+
+    public HashMap<String, AudioInfo> getAudioInfoHashMap() {
+        return audioInfoHashMap;
+    }
+
+    public void setAudioInfoHashMap(HashMap<String, AudioInfo> audioInfoHashMap) {
+        this.audioInfoHashMap = audioInfoHashMap;
+    }
 
     public static int generateUniqueValue() {
         int uniqueValue = (int) (Math.random() * 90000) + 10000;
@@ -19,7 +31,6 @@ public class AudioInputManager {
     public void setUniqueValue(int uniqueValue) {
         audioInfo.setUniqueValue(uniqueValue);
     }
-
 
     //method that gets audio input from user
     public void setAudioName(String name) {
@@ -61,12 +72,56 @@ public class AudioInputManager {
         if (audioInfo.getAudio_url() != null) {
             audioInfoHashMap.put(audioInfo.getAudio_url(), audioInfo);
             System.out.println("Audio Info Added to HashMap values:");
-            audioInfoHashMap.values().forEach(audioInfo -> System.out.println(audioInfo)); // Ovisno o implementaciji toString() metode u klasi AudioInfo
+            audioInfoHashMap.values().forEach(audioInfo -> System.out.println(audioInfo));
 
         }
     }
 
-    //method that saves the audio info to a json file and updates the value for the same key
+    public static void saveAudioInfoHashMapToFile(Map<String, AudioInfo> audioInfoHashMap) {
+        Map<String, AudioInfo> existingData = loadJsonFile();
+
+
+        for (String key : audioInfoHashMap.keySet()) {
+            AudioInfo newValue = audioInfoHashMap.get(key);
+            if (existingData.containsKey(key)) {
+                AudioInfo existingValue = existingData.get(key);
+                existingValue.getUserNames().addAll(newValue.getUserNames());
+            } else {
+                existingData.put(key, newValue);
+            }
+        }
+
+        saveJsonFile(existingData);
+    }
+
+    public static Map<String, AudioInfo> loadJsonFile() {
+        try (Reader reader = new FileReader("AudioInfoMap.txt")) {
+            Type type = new TypeToken<HashMap<String, AudioInfo>>() {}.getType();
+            return gson.fromJson(reader, type);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+    }
+
+    public static void saveJsonFile(Map<String, AudioInfo> data) {
+        try (Writer writer = new FileWriter("AudioInfoMap.txt")) {
+            gson.toJson(data, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //method that iterates trough AudioInfoMap.txt and if inputed audio url exists and returns boolean
+    public boolean checkIfAudioUrlExists(String audioUrl) {
+        Map<String, AudioInfo> audioInfoMap = loadJsonFile();
+        for (String key : audioInfoMap.keySet()) {
+            if (key.equals(audioUrl)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

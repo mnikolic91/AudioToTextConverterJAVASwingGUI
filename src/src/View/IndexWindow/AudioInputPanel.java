@@ -62,55 +62,67 @@ public class AudioInputPanel extends JPanel {
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 //checks if user is logged in
                 if (lorm.isUserLoggedIn()) {
                     String nameTranscriptText = nameTranscript.getText();
                     String linkInputText = linkInput.getText();
 
 
+
                     // check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
-                       aim.setAudioUrl(linkInputText);
-                        aim.setAudioName(nameTranscriptText);
-                        aim.setUniqueValue(aim.generateUniqueValue());
-                        aim.setAudioTextPath();
-                        aim.addUserName(lorm.getUserNickname());
+
+                        //check if linkInputText key exists in AudioInfoMap.txt
+                        if (aim.checkIfAudioUrlExists(linkInputText)) {
+                            aim.addUserName(lorm.getUserNickname());
+                            aim.addAudioInfo();
+                            aim.saveAudioInfoHashMapToFile(aim.getAudioInfoHashMap());
+                        }
+                        else {
+                            aim.setAudioUrl(linkInputText);
+                            aim.setAudioName(nameTranscriptText);
+                            aim.setUniqueValue(aim.generateUniqueValue());
+                            aim.setAudioTextPath();
+                            aim.addUserName(lorm.getUserNickname());
 
 
-                        bottomPanel.add(timeLabel);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                        String time = dateFormat.format(new Date());
-                        timeLabel.setText("Time of Convert: " + time);
 
-                        startTime = System.currentTimeMillis();
-                        aim.setStartTime(startTime);
+                            bottomPanel.add(timeLabel);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                            String time = dateFormat.format(new Date());
+                            timeLabel.setText("Time of Convert: " + time);
 
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                try {
-                                    tapim.postGetTrans(linkInputText);
+                            startTime = System.currentTimeMillis();
+                            aim.setStartTime(startTime);
 
-                                    endTime = System.currentTimeMillis();
-                                    aim.setEndTime(endTime);
+                            Timer timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        tapim.postGetTrans(linkInputText);
 
-                                    conversionDuration = (endTime - startTime) / 1000;
-                                    System.out.println("Conversion Duration: " + conversionDuration + " seconds");
-                                    aim.setConversionDuration(conversionDuration);
-                                    aim.addAudioInfo();
+                                        endTime = System.currentTimeMillis();
+                                        aim.setEndTime(endTime);
+
+                                        conversionDuration = (endTime - startTime) / 1000;
+                                        System.out.println("Conversion Duration: " + conversionDuration + " seconds");
+                                        aim.setConversionDuration(conversionDuration);
+                                        aim.addAudioInfo();
+                                        aim.saveJsonFile(aim.getAudioInfoHashMap());
 
 
-                                } catch (URISyntaxException ex) {
-                                    ex.printStackTrace();
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                } catch (InterruptedException ex) {
-                                    ex.printStackTrace();
+                                    } catch (URISyntaxException ex) {
+                                        ex.printStackTrace();
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    } catch (InterruptedException ex) {
+                                        ex.printStackTrace();
+                                    }
                                 }
-                            }
-                        }, 500); // 500 miliseconds delay
-
+                            }, 500); // 500 miliseconds delay
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Both Name Transcript and Link Input must be filled in to convert.");
                     }

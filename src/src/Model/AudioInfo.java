@@ -16,7 +16,6 @@ public class AudioInfo {
     private static String audioTextPath;
 
 
-
     public void setUniqueValue(int uniqueValue) {
         this.uniqueValue = uniqueValue;
     }
@@ -76,7 +75,6 @@ public class AudioInfo {
     public void setAudioTextPath() {
         this.audioTextPath = ".\\transcripts\\" + uniqueValue + ".txt";
     }
-
 
     @Override
     public String toString() {
