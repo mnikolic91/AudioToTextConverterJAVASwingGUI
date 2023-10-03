@@ -3,6 +3,7 @@ package View.IndexWindow;
 import Controller.AudioInputManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
+import Model.AudioInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,7 @@ public class AudioInputPanel extends JPanel {
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
     private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
+    private AudioInfo ai = new AudioInfo();
 
     public AudioInputPanel() {
 
@@ -68,8 +70,6 @@ public class AudioInputPanel extends JPanel {
                     String nameTranscriptText = nameTranscript.getText();
                     String linkInputText = linkInput.getText();
 
-
-
                     // check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
                        aim.setAudioUrl(linkInputText);
@@ -77,7 +77,6 @@ public class AudioInputPanel extends JPanel {
                         aim.setUniqueValue(aim.generateUniqueValue());
                         aim.setAudioTextPath();
                         aim.addUserName(lorm.getUserNickname());
-
 
 
                         bottomPanel.add(timeLabel);
@@ -101,7 +100,9 @@ public class AudioInputPanel extends JPanel {
                                     conversionDuration = (endTime - startTime) / 1000;
                                     System.out.println("Conversion Duration: " + conversionDuration + " seconds");
                                     aim.setConversionDuration(conversionDuration);
-                                    aim.addAudioInfo();
+
+
+                                    aim.addOrUpdateAudioInfo();
 
 
                                 } catch (URISyntaxException ex) {

@@ -12,8 +12,8 @@ public class AudioInfo {
     private long startTime;
     private long endTime;
     private long conversionDuration;
+    private String audioTextPath;
     private List<String> userNames = new ArrayList<>();
-    private static String audioTextPath;
 
 
     public void setUniqueValue(int uniqueValue) {
@@ -75,6 +75,11 @@ public class AudioInfo {
     public void setAudioTextPath() {
         this.audioTextPath = ".\\transcripts\\" + uniqueValue + ".txt";
     }
+
+    public String getAudioTextPath() {
+        return audioTextPath;
+    }
+
 
     @Override
     public String toString() {

@@ -20,6 +20,7 @@ import java.util.Map;
 public class TranscriptAPIManager {
 
     private String filePath = ".\\transcripts\\";
+    private static boolean isTranscripted=true;
 
     Transcript transcript = new Transcript();
     AudioInfo audioInfo = new AudioInfo();
@@ -102,12 +103,19 @@ public class TranscriptAPIManager {
                 Thread.sleep(1000);
             } else {
                 System.err.println("Invalid input!");
+                isTranscripted = false;
                 break;
             }
         }
 
+
+
         //provjera da li smo dohvatili tekst
         //System.out.println(transcript.getText());
+    }
+
+    public static boolean isIsTranscripted() {
+        return isTranscripted;
     }
 }
 

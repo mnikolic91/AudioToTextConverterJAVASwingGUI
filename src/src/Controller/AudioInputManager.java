@@ -1,15 +1,24 @@
 package Controller;
 
 import Model.AudioInfo;
+import Model.UserInfo;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class AudioInputManager {
 
     private static Gson gson = new Gson();
     private HashMap<String, AudioInfo> audioInfoHashMap = new HashMap<>();
+
     private AudioInfo audioInfo = new AudioInfo();
+    private TranscriptAPIManager tapim = new TranscriptAPIManager();
+    private UserInfo userInfo = new UserInfo();
 
     public HashMap<String, AudioInfo> getAudioInfoHashMap() {
         return audioInfoHashMap;
@@ -63,33 +72,66 @@ public class AudioInputManager {
         audioInfo.setAudioTextPath();
     }
 
-    //method that checks if audio info link is null or not and adds it to the hashmap
-    public void addAudioInfo() {
-        if (audioInfo.getAudio_url() != null) {
-            audioInfoHashMap.put(audioInfo.getAudio_url(), audioInfo);
-            System.out.println("Audio Info Added to HashMap values:");
-            audioInfoHashMap.values().forEach(audioInfo -> System.out.println(audioInfo));
 
+
+    //save userInfo to json file named UserInfoMap.txt
+    public void saveUserInfoToJsonFile() {
+        try (Writer writer = new FileWriter("UserInfoMap.txt",true)) {
+            gson.toJson(userInfo.getAudioNameAndLinkPath(), writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /*public static void saveAudioInfoHashMapToFile(Map<String, AudioInfo> audioInfoHashMap) {
-        Map<String, AudioInfo> existingData = loadJsonFile();
+    public boolean checkIfAudioUrlExists(String audioUrl) {
+        Map<String, AudioInfo> audioInfoMap = loadJsonFile();
+        return audioInfoMap.containsKey(audioUrl);
+    }
 
+    //method that checks if audio info link is null or if there was an error while transcribing or not and adds it to the hashmap
+    // Metoda koja dodaje ili ažurira podatke u JSON datoteci
+    public void addOrUpdateAudioInfo() {
+        if (audioInfo.getAudio_url() != null && tapim.isIsTranscripted()) {
+            Map<String, AudioInfo> existingData = loadJsonFile();
 
-        for (String key : audioInfoHashMap.keySet()) {
-            AudioInfo newValue = audioInfoHashMap.get(key);
-            if (existingData.containsKey(key)) {
-                AudioInfo existingValue = existingData.get(key);
-                existingValue.getUserNames().addAll(newValue.getUserNames());
-            } else {
-                existingData.put(key, newValue);
+            if (existingData == null) {
+                existingData = new HashMap<>(); // Ako datoteka nije mogla biti pročitana ili ne postoji, inicijalizirajte novu mapu
             }
+
+            AudioInfo existingValue = existingData.get(audioInfo.getAudio_url());
+
+            if (existingValue == null) {
+                // Ključ (audio URL) ne postoji, stvorite novi unos
+                existingData.put(audioInfo.getAudio_url(), audioInfo);
+                saveUserInfoToJsonFile();
+            } else {
+                // Ključ (audio URL) već postoji, ažurirajte samo ako korisnik nije već dodan
+                if (!existingValue.getUserNames().contains(userInfo.getNickname())) {
+                    existingValue.getUserNames().add(userInfo.getNickname());
+                    saveUserInfoToJsonFile();
+                }
+            }
+
+            saveJsonFile(existingData);
+            saveUserInfoToJsonFile();
+        } else {
+            System.out.println("Audio URL is null or not transcribed yet!");
         }
-        saveJsonFile(existingData);
     }
 
-    public static Map<String, AudioInfo> loadJsonFile() {
+
+
+    // Metoda koja sprema mapu u JSON datoteku
+    private void saveJsonFile(Map<String, AudioInfo> data) {
+        try (Writer writer = new FileWriter("AudioInfoMap.txt")) {
+            gson.toJson(data, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metoda koja učitava podatke iz JSON datoteke
+    private Map<String, AudioInfo> loadJsonFile() {
         try (Reader reader = new FileReader("AudioInfoMap.txt")) {
             Type type = new TypeToken<HashMap<String, AudioInfo>>() {}.getType();
             return gson.fromJson(reader, type);
@@ -99,22 +141,5 @@ public class AudioInputManager {
         }
     }
 
-    public static void saveJsonFile(Map<String, AudioInfo> data) {
-        try (Writer writer = new FileWriter("AudioInfoMap.txt", true)) {
-            gson.toJson(data, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    //method that iterates trough AudioInfoMap.txt and if inputed audio url exists and returns boolean
-    public boolean checkIfAudioUrlExists(String audioUrl) {
-        Map<String, AudioInfo> audioInfoMap = loadJsonFile();
-        for (String key : audioInfoMap.keySet()) {
-            if (key.equals(audioUrl)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 }

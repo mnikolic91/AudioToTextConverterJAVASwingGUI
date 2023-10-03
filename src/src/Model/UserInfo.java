@@ -1,5 +1,6 @@
 package Model;
 
+
 public class UserInfo {
 
     private static String nickname;
@@ -39,4 +40,9 @@ public class UserInfo {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
+
+
+
+
+
 }
