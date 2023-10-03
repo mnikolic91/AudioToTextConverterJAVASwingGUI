@@ -74,15 +74,6 @@ public class AudioInputManager {
 
 
 
-    //save userInfo to json file named UserInfoMap.txt
-    public void saveUserInfoToJsonFile() {
-        try (Writer writer = new FileWriter("UserInfoMap.txt",true)) {
-            gson.toJson(userInfo.getAudioNameAndLinkPath(), writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean checkIfAudioUrlExists(String audioUrl) {
         Map<String, AudioInfo> audioInfoMap = loadJsonFile();
         return audioInfoMap.containsKey(audioUrl);
@@ -103,22 +94,20 @@ public class AudioInputManager {
             if (existingValue == null) {
                 // Ključ (audio URL) ne postoji, stvorite novi unos
                 existingData.put(audioInfo.getAudio_url(), audioInfo);
-                saveUserInfoToJsonFile();
+
             } else {
                 // Ključ (audio URL) već postoji, ažurirajte samo ako korisnik nije već dodan
                 if (!existingValue.getUserNames().contains(userInfo.getNickname())) {
                     existingValue.getUserNames().add(userInfo.getNickname());
-                    saveUserInfoToJsonFile();
+
                 }
             }
-
             saveJsonFile(existingData);
-            saveUserInfoToJsonFile();
+
         } else {
             System.out.println("Audio URL is null or not transcribed yet!");
         }
     }
-
 
 
     // Metoda koja sprema mapu u JSON datoteku
@@ -140,6 +129,4 @@ public class AudioInputManager {
             return new HashMap<>();
         }
     }
-
-
 }

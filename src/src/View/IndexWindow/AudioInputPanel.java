@@ -4,6 +4,7 @@ import Controller.AudioInputManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
 import Model.AudioInfo;
+import View.SecondWindow.InfoWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,6 +104,9 @@ public class AudioInputPanel extends JPanel {
 
 
                                     aim.addOrUpdateAudioInfo();
+
+                                    InfoWindow infoWindow = new InfoWindow();
+                                    infoWindow.setVisible(true);
 
 
                                 } catch (URISyntaxException ex) {
