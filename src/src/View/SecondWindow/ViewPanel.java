@@ -1,5 +1,6 @@
 package View.SecondWindow;
 
+import Controller.AudioInputManager;
 import Controller.InfoWindowManager;
 import Model.Transcript;
 
@@ -7,14 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewPanel extends JPanel {
-    private JTextArea viewTextArea;
-    private InfoWindowManager iwm = new InfoWindowManager();
-    private Transcript transcript = new Transcript();
+    public static JTextPane viewTextPane = new JTextPane();
 
     public ViewPanel() {
         setLayout(new BorderLayout());
-        viewTextArea = new JTextArea();
-        JScrollPane viewScrollPane = new JScrollPane(viewTextArea);
+        JScrollPane viewScrollPane = new JScrollPane(viewTextPane);
         add(viewScrollPane, BorderLayout.CENTER);
+
+        viewTextPane.setEditable(false);
+        viewTextPane.setFont(new Font("Serif", Font.PLAIN, 14));
+
     }
 }

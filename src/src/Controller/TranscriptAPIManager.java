@@ -3,6 +3,7 @@ package Controller;
 import Model.AudioInfo;
 import Model.Transcript;
 import Model.UserInfo;
+import View.SecondWindow.ViewPanel;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -129,9 +130,7 @@ public class TranscriptAPIManager {
             }
         }
 
-
-        //provjera da li smo dohvatili tekst
-        //System.out.println(transcript.getText());
+        ViewPanel.viewTextPane.setText(transcript.getText());
     }
 
     public static boolean isIsTranscripted() {

@@ -5,6 +5,7 @@ import Controller.InfoWindowManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
 import Model.AudioInfo;
+import Model.Transcript;
 import Model.UserInfo;
 import View.SecondWindow.InfoWindow;
 import View.SecondWindow.TranscriptsPanel;
@@ -30,6 +31,7 @@ public class AudioInputPanel extends JPanel {
     private long endTime;
     private long conversionDuration;
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
+    Transcript transcript = new Transcript();
     private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
     private AudioInfo ai = new AudioInfo();
@@ -38,7 +40,6 @@ public class AudioInputPanel extends JPanel {
     public AudioInputPanel() {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
 
         Icon icon = new ImageIcon("misc/time_icon.png");
 
@@ -64,7 +65,6 @@ public class AudioInputPanel extends JPanel {
         add(nameTranscript);
         add(bottomPanel);
 
-
         // action listener for the convert button
         convertButton.addActionListener(new ActionListener() {
             @Override
@@ -81,8 +81,8 @@ public class AudioInputPanel extends JPanel {
                         aim.setAudioName(nameTranscriptText);
                         aim.setUniqueValue(aim.generateUniqueValue());
                         aim.setAudioTextPath();
+                        aim.addAudioName(nameTranscriptText);
                         aim.addUserName(lorm.getUserNickname());
-
 
                         bottomPanel.add(timeLabel);
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -106,10 +106,8 @@ public class AudioInputPanel extends JPanel {
                                     System.out.println("Conversion Duration: " + conversionDuration + " seconds");
                                     aim.setConversionDuration(conversionDuration);
 
-
                                     aim.addOrUpdateAudioInfo();
                                     iwm.listFilesInFolder(UserInfo.nickname, TranscriptsPanel.transcriptsList);
-
 
                                     InfoWindow infoWindow = new InfoWindow();
                                     infoWindow.setVisible(true);

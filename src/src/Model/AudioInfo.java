@@ -14,6 +14,7 @@ public class AudioInfo {
     private long conversionDuration;
     private static String audioTextPath;
     private List<String> userNames = new ArrayList<>();
+    private List<String> audioNames = new ArrayList<>();
 
 
     public void setUniqueValue(int uniqueValue) {
@@ -80,6 +81,14 @@ public class AudioInfo {
         return audioTextPath;
     }
 
+    public List<String> getAudioNames() {
+        return audioNames;
+    }
+
+    public void setAudioNames(List<String> audioNames) {
+        this.audioNames = audioNames;
+    }
+
 
     @Override
     public String toString() {
@@ -90,6 +99,7 @@ public class AudioInfo {
                 ", conversionDuration=" + conversionDuration +
                 ", userNames=" + userNames +
                 ", audioTextPath='" + audioTextPath + '\'' +
+                ", audioNames=" + audioNames +
                 '}';
     }
 }

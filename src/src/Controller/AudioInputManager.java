@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.AudioInfo;
+import Model.Transcript;
 import Model.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,15 +14,13 @@ import java.util.Map;
 
 public class AudioInputManager {
 
-
-
     private static Gson gson = new Gson();
     private HashMap<String, AudioInfo> audioInfoHashMap = new HashMap<>();
 
     private AudioInfo audioInfo = new AudioInfo();
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
     private UserInfo userInfo = new UserInfo();
-
+    private Transcript transcript = new Transcript();
 
     public static int generateUniqueValue() {
         int uniqueValue = (int) (Math.random() * 90000) + 10000;
@@ -67,7 +66,9 @@ public class AudioInputManager {
         audioInfo.setAudioTextPath();
     }
 
-
+    public void addAudioName(String audioName) {
+        audioInfo.getAudioNames().add(audioName);
+    }
 
     public boolean checkIfAudioUrlExists(String audioUrl) {
         Map<String, AudioInfo> audioInfoMap = loadJsonFile();
@@ -95,6 +96,10 @@ public class AudioInputManager {
                 if (!existingValue.getUserNames().contains(userInfo.getNickname())) {
                     existingValue.getUserNames().add(userInfo.getNickname());
 
+
+                }
+                else if ( !existingValue.getAudioNames().contains(AudioInfo.audioName)) {
+                    existingValue.getAudioNames().add(AudioInfo.audioName);
                 }
             }
             saveJsonFile(existingData);
@@ -124,7 +129,6 @@ public class AudioInputManager {
             return new HashMap<>();
         }
     }
-
 
 
 }

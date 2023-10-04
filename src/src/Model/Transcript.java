@@ -48,4 +48,5 @@ public class Transcript {
         this.text = text;
     }
 
+
 }

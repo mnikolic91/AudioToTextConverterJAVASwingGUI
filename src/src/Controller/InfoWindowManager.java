@@ -7,8 +7,7 @@ import View.SecondWindow.TranscriptsPanel;
 import View.SecondWindow.ViewPanel;
 
 import javax.swing.*;
-import java.io.File;
-
+import java.io.*;
 
 public class InfoWindowManager {
 
@@ -16,7 +15,6 @@ public class InfoWindowManager {
     ViewPanel viewPanel;
     Transcript transcript;
     UserInfo userInfo;
-    TranscriptsPanel transcriptsPanel = new TranscriptsPanel();
 
     public void listFilesInFolder(String name, JList listField) {
 
@@ -35,5 +33,39 @@ public class InfoWindowManager {
         //ispis modela u JListi
         listField.setModel(model);
     }
+
+    public void showTextInViewPanel(String name, JTextPane textPane) {
+
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(userInfo.getTranscriptFolder() + "\\" + UserInfo.nickname + "\\" + name + "\\"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            String everything = sb.toString();
+            textPane.setText(everything);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+
+
 }
 
