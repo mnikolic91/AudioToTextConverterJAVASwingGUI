@@ -1,7 +1,5 @@
 package Model;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 /**
  * Klasa koja drzi sve koristene informacije

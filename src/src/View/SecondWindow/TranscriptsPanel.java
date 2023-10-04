@@ -4,15 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TranscriptsPanel extends JPanel {
-    private JComboBox<String> transcriptsComboBox;
+    public static JList<String> transcriptsList= new JList<>();;
+    private JLabel transcriptLabel;
+
 
     public TranscriptsPanel() {
         setLayout(new BorderLayout());
-        transcriptsComboBox = new JComboBox<>();
-        // Dodajte stavke u comboBox prema vašim potrebama
-        transcriptsComboBox.addItem("Transkript 1");
-        transcriptsComboBox.addItem("Transkript 2");
-        transcriptsComboBox.addItem("Transkript 3");
-        add(transcriptsComboBox, BorderLayout.NORTH);
+        transcriptLabel = new JLabel("Vaši transkripti:");
+
+        // Postavljanje modela (ovo možete učiniti samo jednom)
+
+        add(transcriptLabel, BorderLayout.NORTH);
+        add(new JScrollPane(transcriptsList), BorderLayout.CENTER);
+
     }
+
+
 }

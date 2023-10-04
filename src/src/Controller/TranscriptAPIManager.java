@@ -2,6 +2,7 @@ package Controller;
 
 import Model.AudioInfo;
 import Model.Transcript;
+import Model.UserInfo;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -23,7 +24,6 @@ public class TranscriptAPIManager {
     private static boolean isTranscripted=true;
 
     Transcript transcript = new Transcript();
-    AudioInfo audioInfo = new AudioInfo();
 
     /**
      * metoda koja salje zahtjev AssemblyAI API-ju, dohvaca i transcriptira audio u tekstualni format, te ga ispisuje u lokalni text file
@@ -89,15 +89,36 @@ public class TranscriptAPIManager {
             transcript = gson.fromJson(getResponse.body(), Transcript.class);
             System.out.println(transcript.getStatus());
 
-            if ("completed".equals(transcript.getStatus())) {
-                //otvaramo buffered write gdje cemo zapisivati nas transcript
-                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + audioInfo.getUniqueValue()+".txt"));
-                System.out.println(audioInfo.getAudioName());
-                writer.write(transcript.getText());
-                //zatvaramo buffered writer
-                writer.close();
-                //prekidamo vezu sa klijentom
-                break;
+            String transcriptStatus = transcript.getStatus();
+
+            if ("completed".equals(transcriptStatus)) {
+                // Kreirajte File objekt za provjeru postojanja direktorija
+                File directory = new File(filePath + "\\" + UserInfo.nickname);
+
+                // Provjerite postoji li direktorij, a ako ne postoji, stvorite ga
+                if (!directory.exists()) {
+                    directory.mkdirs(); // Stvaramo direktorij ako ne postoji
+                }
+
+                // Kreirajte File objekt za putanju datoteke
+                File transcriptFile = new File(filePath + "\\" + UserInfo.nickname + "\\" + AudioInfo.audioName + ".txt");
+
+                try {
+                    // Otvaramo buffered writer gdje ćemo zapisivati naš transkript
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(transcriptFile));
+                    //System.out.println(transcriptFile.getAbsolutePath()); // Ispis putanje radi provjere
+
+                    writer.write(transcript.getText());
+
+                    // Zatvaramo buffered writer
+                    writer.close();
+
+                    // Prekidamo vezu s klijentom
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
             } else if ("processing".equals(transcript.getStatus())) {
                 Thread.sleep(1000);
@@ -107,7 +128,6 @@ public class TranscriptAPIManager {
                 break;
             }
         }
-
 
 
         //provjera da li smo dohvatili tekst

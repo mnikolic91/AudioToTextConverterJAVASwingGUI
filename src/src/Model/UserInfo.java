@@ -3,10 +3,11 @@ package Model;
 
 public class UserInfo {
 
-    private static String nickname;
+    public static String nickname;
     private String password;
     private String salt;
     private static boolean loggedIn;
+    private static final String TRANSCRIPT_FOLDER = ".\\transcripts\\";
 
     public String getNickname() {
         return nickname;
@@ -41,4 +42,8 @@ public class UserInfo {
         this.loggedIn = loggedIn;
     }
 
+    public static String getTranscriptFolder() {
+        return TRANSCRIPT_FOLDER;
     }
+
+}

@@ -14,7 +14,6 @@ public class ViewPanel extends JPanel {
     public ViewPanel() {
         setLayout(new BorderLayout());
         viewTextArea = new JTextArea();
-        setSize(150, 150);
         JScrollPane viewScrollPane = new JScrollPane(viewTextArea);
         add(viewScrollPane, BorderLayout.CENTER);
     }

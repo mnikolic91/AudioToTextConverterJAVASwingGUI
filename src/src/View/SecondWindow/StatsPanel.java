@@ -1,16 +1,18 @@
 package View.SecondWindow;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class StatsPanel extends JPanel {
     private JTextArea statsTextArea;
+    private JLabel statsLabel;
 
     public StatsPanel() {
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        statsLabel = new JLabel("Statistike:");
         statsTextArea = new JTextArea();
         JScrollPane statsScrollPane = new JScrollPane(statsTextArea);
-        add(statsScrollPane, BorderLayout.CENTER);
+        add(statsLabel);
+        add(statsScrollPane);
 
         //fill statsTextArea with random text
         statsTextArea.setText("Lorem ipsum dolor sit amet, "+ "\n" +"consectetur adipiscing elit.");

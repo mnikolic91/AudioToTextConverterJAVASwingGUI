@@ -8,11 +8,11 @@ public class AudioInfo {
 
     private static int uniqueValue;
     private static String audio_url;
-    private static String audioName;
+    public static String audioName;
     private long startTime;
     private long endTime;
     private long conversionDuration;
-    private String audioTextPath;
+    private static String audioTextPath;
     private List<String> userNames = new ArrayList<>();
 
 
@@ -24,7 +24,7 @@ public class AudioInfo {
         return uniqueValue;
     }
 
-    public String getAudio_url() {
+    public static String getAudio_url() {
         return audio_url;
     }
 
@@ -32,7 +32,7 @@ public class AudioInfo {
         this.audio_url = audio_url;
     }
 
-    public String getAudioName() {
+    public static String getAudioName() {
         return audioName;
     }
 
@@ -76,7 +76,7 @@ public class AudioInfo {
         this.audioTextPath = ".\\transcripts\\" + uniqueValue + ".txt";
     }
 
-    public String getAudioTextPath() {
+    public static String getAudioTextPath() {
         return audioTextPath;
     }
 

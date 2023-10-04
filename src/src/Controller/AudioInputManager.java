@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class AudioInputManager {
 
+
+
     private static Gson gson = new Gson();
     private HashMap<String, AudioInfo> audioInfoHashMap = new HashMap<>();
 
@@ -20,13 +22,6 @@ public class AudioInputManager {
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
     private UserInfo userInfo = new UserInfo();
 
-    public HashMap<String, AudioInfo> getAudioInfoHashMap() {
-        return audioInfoHashMap;
-    }
-
-    public void setAudioInfoHashMap(HashMap<String, AudioInfo> audioInfoHashMap) {
-        this.audioInfoHashMap = audioInfoHashMap;
-    }
 
     public static int generateUniqueValue() {
         int uniqueValue = (int) (Math.random() * 90000) + 10000;
@@ -129,4 +124,7 @@ public class AudioInputManager {
             return new HashMap<>();
         }
     }
+
+
+
 }
