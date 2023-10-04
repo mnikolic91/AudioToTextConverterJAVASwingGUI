@@ -8,6 +8,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,9 +72,12 @@ public class AudioInputManager {
         audioInfo.getAudioNames().add(audioName);
     }
 
-    public boolean checkIfAudioUrlExists(String audioUrl) {
-        Map<String, AudioInfo> audioInfoMap = loadJsonFile();
-        return audioInfoMap.containsKey(audioUrl);
+    //method that catches the time of conversion
+    public String catchTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = dateFormat.format(new Date());
+        audioInfo.setTime(time);
+        return time;
     }
 
     //method that checks if audio info link is null or if there was an error while transcribing or not and adds it to the hashmap
@@ -108,7 +113,6 @@ public class AudioInputManager {
             System.out.println("Audio URL is null or not transcribed yet!");
         }
     }
-
 
     // Metoda koja sprema mapu u JSON datoteku
     private void saveJsonFile(Map<String, AudioInfo> data) {

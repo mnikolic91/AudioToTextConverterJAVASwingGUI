@@ -5,7 +5,6 @@ import Controller.InfoWindowManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
 import Model.AudioInfo;
-import Model.Transcript;
 import Model.UserInfo;
 import View.SecondWindow.InfoWindow;
 import View.SecondWindow.TranscriptsPanel;
@@ -16,22 +15,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimerTask;
 import java.util.Timer;
 
 public class AudioInputPanel extends JPanel {
-    private JTextField linkInput;
-    private JTextField nameTranscript;
-    private JButton convertButton;
+    private final JTextField linkInput;
+    private final JTextField nameTranscript;
+    private final JButton convertButton;
     private JLabel timeLabel;
     private JLabel iconLabel;
     private long startTime;
     private long endTime;
     private long conversionDuration;
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
-    Transcript transcript = new Transcript();
     private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
     private AudioInfo ai = new AudioInfo();
@@ -77,7 +73,7 @@ public class AudioInputPanel extends JPanel {
 
                     // check if both fields are filled in
                     if (!nameTranscriptText.isEmpty() && !linkInputText.isEmpty()) {
-                       aim.setAudioUrl(linkInputText);
+                        aim.setAudioUrl(linkInputText);
                         aim.setAudioName(nameTranscriptText);
                         aim.setUniqueValue(aim.generateUniqueValue());
                         aim.setAudioTextPath();
@@ -85,9 +81,8 @@ public class AudioInputPanel extends JPanel {
                         aim.addUserName(lorm.getUserNickname());
 
                         bottomPanel.add(timeLabel);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                        String time = dateFormat.format(new Date());
-                        timeLabel.setText("Time of Convert: " + time);
+                        //SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                        timeLabel.setText("Time of Convert: " + aim.catchTime());
 
                         startTime = System.currentTimeMillis();
                         aim.setStartTime(startTime);

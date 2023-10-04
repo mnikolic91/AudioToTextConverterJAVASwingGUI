@@ -9,6 +9,7 @@ public class AudioInfo {
     private static int uniqueValue;
     private static String audio_url;
     public static String audioName;
+    private String time;
     private long startTime;
     private long endTime;
     private long conversionDuration;
@@ -89,17 +90,22 @@ public class AudioInfo {
         this.audioNames = audioNames;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     @Override
     public String toString() {
-        return "AudioInfo{" +
-                "audio_url='" + audio_url + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+        return "Your audio transcript stats: " +
+                ", startTime=" + time +
                 ", conversionDuration=" + conversionDuration +
-                ", userNames=" + userNames +
-                ", audioTextPath='" + audioTextPath + '\'' +
-                ", audioNames=" + audioNames +
-                '}';
+                ", other users that converted the same audio =" + userNames +
+                "";
     }
+
+
 }

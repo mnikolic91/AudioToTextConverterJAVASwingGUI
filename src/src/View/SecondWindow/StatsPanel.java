@@ -1,9 +1,15 @@
 package View.SecondWindow;
 
+import Controller.AudioInputManager;
+import Model.AudioInfo;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class StatsPanel extends JPanel {
+
+    AudioInputManager aim = new AudioInputManager();
+    AudioInfo ai = new AudioInfo();
     private JTextArea statsTextArea;
     private JLabel statsLabel;
 
@@ -14,10 +20,13 @@ public class StatsPanel extends JPanel {
         statsLabel.setFont(new Font("Serif", Font.BOLD, 16));
         statsTextArea.setFont(new Font("Serif", Font.PLAIN, 14));
         JScrollPane statsScrollPane = new JScrollPane(statsTextArea);
+        statsTextArea.setEditable(false);
+        statsTextArea.setLineWrap(true);
+        statsTextArea.setWrapStyleWord(true);
         add(statsLabel);
         add(statsScrollPane);
 
         //fill statsTextArea with random text
-        statsTextArea.setText("Lorem ipsum dolor sit amet, "+ "\n" +"consectetur adipiscing elit.");
+        statsTextArea.setText(ai.toString());
     }
 }
