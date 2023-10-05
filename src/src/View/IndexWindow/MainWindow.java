@@ -2,6 +2,10 @@ package View.IndexWindow;
 
 import javax.swing.*;
 
+/**
+ * This class is responsible for the main window.
+ * It contains the login panel and the audio info input panel.
+ */
 public class MainWindow {
     public JFrame frame;
     private LoginPanel loginPanel;
@@ -12,25 +16,18 @@ public class MainWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(650, 350);
 
-        // Kreiranje i postavljanje glavnog panela
         JPanel mainPanel = new JPanel();
-        //mainPanel.setLayout(new BorderLayout());
 
-        // Dodavanje LoginPanel
         loginPanel = new LoginPanel();
         mainPanel.add(loginPanel);
 
-        // Dodavanje LinkInputPanel
         audioInfoInputPanel = new AudioInputPanel();
         mainPanel.add(audioInfoInputPanel);
         audioInfoInputPanel.setBorder(BorderFactory.createEmptyBorder(60, 100, 25, 100));
 
-
-        // Postavljanje glavnog panela u okvir
         frame.add(mainPanel);
         frame.setVisible(true);
     }
-
 }
 
 

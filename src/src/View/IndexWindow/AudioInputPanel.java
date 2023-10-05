@@ -17,7 +17,12 @@ import java.net.URISyntaxException;
 import java.util.TimerTask;
 import java.util.Timer;
 
-
+/**
+ * This class is responsible for the audio input panel in the index window.
+ * It contains two text fields and a convert button.
+ * The text fields are used to input the link and the name of the transcript.
+ * The convert button is used to convert the audio file.
+ */
 public class AudioInputPanel extends JPanel {
     private final JTextField linkInput;
     private final JTextField nameTranscript;
@@ -60,7 +65,14 @@ public class AudioInputPanel extends JPanel {
         add(nameTranscript);
         add(bottomPanel);
 
-        // action listener for the convert button
+        /**
+         * This action listener is responsible for the convert button.
+         * It checks if the user is logged in and if both fields are filled in.
+         * If both fields are filled in, it sets the audio url, name, unique value and text path.
+         * It also adds the audio name and user name to the database.
+         * It then adds or updates the audio info.
+         * It then lists the files in the folder and opens the info window.
+         */
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,8 +92,7 @@ public class AudioInputPanel extends JPanel {
                         aim.addUserName(lorm.getUserNickname());
 
                         bottomPanel.add(timeLabel);
-                        //SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                        timeLabel.setText("Time of Convert: " + aim.catchTime());
+                        timeLabel.setText("Time of Convert: " + aim.catchTime() + "\n" + " Please wait...");
 
                         startTime = System.currentTimeMillis();
                         aim.setStartTime(startTime);

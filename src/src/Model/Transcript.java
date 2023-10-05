@@ -2,18 +2,15 @@ package Model;
 
 
 /**
- * Klasa koja drzi sve koristene informacije
+ * This class is responsible for the transcript.
+ * It contains the audio url, id, status and text.
  */
-
 public class Transcript {
 
     private String audio_url;
     private String id;
     private String status;
     private String text;
-
-
-    //direktorij u kojem se trenutno nalazimo - varijabla nam treba kod spremanja i citanja fileova
 
 
     public String getAudio_url() {

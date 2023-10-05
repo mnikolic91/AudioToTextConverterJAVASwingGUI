@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.UserInfo;
-import View.SecondWindow.StatsPanel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -11,6 +10,12 @@ import javax.swing.*;
 import java.io.*;
 import java.util.Arrays;
 
+
+/**
+ * This class is responsible for the info window manager.
+ * It contains the methods for listing files in the transcripts panel,
+ * showing text in the view panel and showing stats in the stats panel.
+ */
 public class InfoWindowManager {
 
     private String keySet;
@@ -20,25 +25,33 @@ public class InfoWindowManager {
 
     UserInfo userInfo;
 
+
+    /**
+     * Constructor for the InfoWindowManager class.
+     * It initializes the userInfo object.
+     */
     public void listFilesInFolder(String name, JList listField) {
 
-
-        //folder objekt kojem pridruzujemo putanju
         File folder = new File(userInfo.getTranscriptFolder() + "\\" + name + "\\");
         //provjera da li folder postoji
         if (!folder.exists()) {
             folder.mkdirs();
         }
-        //pozivamo DefaultListModel za JList
+
         DefaultListModel model = new DefaultListModel();
-        //petlja koja puni model
+
         for (File f : folder.listFiles()) {
             model.addElement(f.getName());
         }
-        //ispis modela u JListi
+
         listField.setModel(model);
     }
 
+
+    /**
+     * Constructor for the InfoWindowManager class.
+     * It initializes the userInfo object.
+     */
     public void showTextInViewPanel(String name, JTextPane textPane) {
 
         BufferedReader br = null;
@@ -70,6 +83,10 @@ public class InfoWindowManager {
     }
 
 
+    /**
+     * Constructor for the InfoWindowManager class.
+     * It initializes the userInfo object.
+     */
     public void AudioInfoSearcher(String audioNameToSearch) {
         String filePath = "AudioInfoMap.txt";
 
@@ -93,7 +110,6 @@ public class InfoWindowManager {
                     }
 
                     if (found) {
-                        // Ovdje možete ispisati URL
                         System.out.println("URL: " + key);
                         keySet = key;
 
@@ -105,7 +121,6 @@ public class InfoWindowManager {
                         System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
                         userNames = audioObject.getAsJsonArray("userNames").toString().split(",");
 
-                        // Ispis "audioNames"
                         System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
 
                         //System.out.println("jel puni " + keySet + " " + Arrays.toString(userNames) + " " + conversionDurations + " " + time);

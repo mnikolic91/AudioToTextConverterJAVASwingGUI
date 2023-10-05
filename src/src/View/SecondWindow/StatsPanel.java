@@ -4,10 +4,15 @@ package View.SecondWindow;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class is responsible for the stats panel in the second window.
+ * It contains a label and a text area.
+ * The text area is used to display the transcript stats.
+ */
 public class StatsPanel extends JPanel {
 
 
-    public static JTextArea statsTextArea= new JTextArea();
+    public static JTextArea statsTextArea = new JTextArea();
     private JLabel statsLabel;
 
 

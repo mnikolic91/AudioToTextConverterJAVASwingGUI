@@ -9,8 +9,9 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
-    * This class is used for hashing the password and saving it to the text file
+/**
+ * This class is responsible for the login and registration manager.
+ * It contains the methods that generate random string, do hashing and send post request to the server.
  */
 
 public class LoginAndRegistrationManager {
@@ -19,7 +20,13 @@ public class LoginAndRegistrationManager {
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    //generateRandomString method that generates random string of 10 characters which is used to create a unique "salt" for each user
+    /**
+     * This method sends post request to the server.
+     * @param nickname
+     * @param password
+     * @param salt
+     * @return
+     */
     public void generateRandomString() {
         SecureRandom random = new SecureRandom();
         StringBuilder salt = new StringBuilder();
@@ -32,7 +39,11 @@ public class LoginAndRegistrationManager {
         userInfo.setSalt(salt.toString());
     }
 
-    //doHashing method that hashes the password and salt and saves it to the userInfo object
+    /**
+     * This method does hashing.
+     * @param password
+     * @return
+     */
     public String doHashing(String password) {
         userInfo.setPassword(password + userInfo.getSalt());
         try {
@@ -52,7 +63,11 @@ public class LoginAndRegistrationManager {
         return "";
     }
 
-    //doesNicknameExists method that checks if the nickname already exists in the text file
+    /**
+     * This method checks if the nickname exists.
+     * @param nickname
+     * @return
+     */
     public boolean doesNicknameExists(String nickname) {
         File file = new File("hashing.txt");
 
@@ -77,17 +92,19 @@ public class LoginAndRegistrationManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; // Nickname is not found in the text file
+        return false;
     }
 
-    //saveHashAndSaltToTextFile method that saves the nickname, hashed password and salt to the text file
+    /**
+     * This method saves the nickname, hashed password and salt to the text file.
+     * @param nickname
+     */
     public void saveHashAndSaltToTextFile(String nickname) {
         File file = new File("hashing.txt");
 
-        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
         if (!file.exists()) {
             try {
-                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+                file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,11 +118,14 @@ public class LoginAndRegistrationManager {
             }
         }
 
-    //readHashAndSaltFromTextFile method that reads the nickname, hashed password and salt from the text file
+    /**
+     * This method reads the nickname, hashed password and salt from the text file.
+     * @param nickname
+     * @return
+     */
     public Map<String, String> readHashAndSaltFromTextFile(String nickname) {
         File file = new File("hashing.txt");
 
-        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
         if (!file.exists()) {
             try {
                 file.createNewFile(); // Stvaramo datoteku ako ne postoji
@@ -131,7 +151,12 @@ public class LoginAndRegistrationManager {
         return userData; // Returns empty map if the nickname is not found in the text file
     }
 
-    //compareHashedPassword method that compares the hashed password from the text file with the hashed password from the login window
+    /**
+     * This method compares the hashed password from the text file with the hashed password from the login window.
+     * @param nickname
+     * @param password
+     * @return
+     */
     public boolean compareHashedPassword(String nickname, String password) {
         Map<String, String> userData = readHashAndSaltFromTextFile(nickname);
         String hashedPassword = userData.get("hashedPassword");

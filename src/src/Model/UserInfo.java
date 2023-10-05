@@ -1,6 +1,9 @@
 package Model;
 
-
+/**
+ * This class is responsible for the user info.
+ * It contains the user's nickname, password, salt and login status.
+ */
 public class UserInfo {
 
     public static String nickname;

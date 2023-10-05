@@ -6,6 +6,11 @@ import javax.swing.*;
 import javax.swing.text.Position;
 import java.awt.*;
 
+/**
+ * This class is responsible for the transcripts panel in the second window.
+ * It contains a label, a text field and a list.
+ * The list is used to display the transcripts.
+ */
 public class TranscriptsPanel extends JPanel {
     public static JList<String> transcriptsList = new JList<>();
     private JLabel transcriptLabel;
@@ -33,7 +38,11 @@ public class TranscriptsPanel extends JPanel {
         add(new JScrollPane(transcriptsList), BorderLayout.CENTER);
         add(filterField, BorderLayout.PAGE_END);
 
-
+        /**
+         * This listener is used to display the selected transcript in the view panel.
+         * It also calls the AudioInfoSearcher method from the InfoWindowManager class
+         * to display the audio information in the stats panel.
+         */
         transcriptsList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 String fileName = transcriptsList.getSelectedValue();
@@ -46,6 +55,9 @@ public class TranscriptsPanel extends JPanel {
             }
         });
 
+        /**
+         * This listener is used to filter the transcripts list.
+         */
         filterField.addActionListener(e -> {
             String filterText = filterField.getText();
             if (filterText.length() == 0) {

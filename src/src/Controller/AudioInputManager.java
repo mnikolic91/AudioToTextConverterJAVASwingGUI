@@ -12,6 +12,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is responsible for the audio input manager.
+ * It contains the methods for setting the audio input from user,
+ * setting the start and end time of conversion, and saving the audio info to a file.
+ */
+
 public class AudioInputManager {
 
     private static Gson gson = new Gson();
@@ -27,6 +33,7 @@ public class AudioInputManager {
         return uniqueValue;
     }
 
+    //method that gets the user name
     public void setUniqueValue(int uniqueValue) {
         audioInfo.setUniqueValue(uniqueValue);
     }
@@ -66,6 +73,7 @@ public class AudioInputManager {
         audioInfo.setAudioTextPath();
     }
 
+    //method that sets the audio path
     public void addAudioName(String audioName) {
         audioInfo.getAudioNames().add(audioName);
     }
@@ -76,7 +84,10 @@ public class AudioInputManager {
         return audioInfo.toString();
     }
 
-    //method that catches the time of conversion
+    /**
+     * method that catches the date and time of conversion
+     * @return date and time of conversion
+     */
     public String catchTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         String time = dateFormat.format(new Date());
@@ -84,30 +95,30 @@ public class AudioInputManager {
         return time;
     }
 
-    //method that checks if audio info link is null or if there was an error while transcribing or not and adds it to the hashmap
-    // Metoda koja dodaje ili ažurira podatke u JSON datoteci
+    /**
+     * method that catches the date and time of conversion
+     * @return date and time of conversion
+     */
     public void addOrUpdateAudioInfo() {
         if (audioInfo.getAudio_url() != null && tapim.isIsTranscripted()) {
             Map<String, AudioInfo> existingData = loadJsonFile();
 
             if (existingData == null) {
-                existingData = new HashMap<>(); // Ako datoteka nije mogla biti pročitana ili ne postoji, inicijalizirajte novu mapu
+                existingData = new HashMap<>();
             }
 
             AudioInfo existingValue = existingData.get(audioInfo.getAudio_url());
 
             if (existingValue == null) {
-                // Ključ (audio URL) ne postoji, stvorite novi unos
                 existingData.put(audioInfo.getAudio_url(), audioInfo);
 
             } else {
-                // Ključ (audio URL) već postoji, ažurirajte samo ako korisnik nije već dodan
                 if (!existingValue.getUserNames().contains(userInfo.getNickname())) {
                     existingValue.getUserNames().add(userInfo.getNickname());
 
 
                 }
-                if ( !existingValue.getAudioNames().contains(AudioInfo.audioName)) {
+                if (!existingValue.getAudioNames().contains(AudioInfo.audioName)) {
                     existingValue.getAudioNames().add(AudioInfo.audioName);
                 }
             }
@@ -118,7 +129,10 @@ public class AudioInputManager {
         }
     }
 
-    // Metoda koja sprema mapu u JSON datoteku
+    /**
+     * method that saves the audio info to a file
+     * @param data
+     */
     private void saveJsonFile(Map<String, AudioInfo> data) {
         File file = new File("AudioInfoMap.txt");
 
@@ -137,7 +151,10 @@ public class AudioInputManager {
         }
     }
 
-    // Metoda koja učitava podatke iz JSON datoteke
+    /**
+     * method that loads the audio info from a file
+     * @return
+     */
     private Map<String, AudioInfo> loadJsonFile() {
         File file = new File("AudioInfoMap.txt");
 
@@ -150,7 +167,8 @@ public class AudioInputManager {
             }
         }
         try (Reader reader = new FileReader("AudioInfoMap.txt")) {
-            Type type = new TypeToken<HashMap<String, AudioInfo>>() {}.getType();
+            Type type = new TypeToken<HashMap<String, AudioInfo>>() {
+            }.getType();
             return gson.fromJson(reader, type);
         } catch (IOException e) {
             e.printStackTrace();

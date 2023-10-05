@@ -3,7 +3,10 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class is responsible for the audio info.
+ * It contains the audio url, name, start time, end time, conversion duration, text path and user names.
+ */
 public class AudioInfo {
 
     private static int uniqueValue;
