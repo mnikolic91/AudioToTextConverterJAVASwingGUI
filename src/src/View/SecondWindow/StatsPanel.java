@@ -5,13 +5,12 @@ import Controller.InfoWindowManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class StatsPanel extends JPanel {
 
     InfoWindowManager iwm = new InfoWindowManager();
 
-    private JTextArea statsTextArea= new JTextArea();;
+    private JTextArea statsTextArea= new JTextArea();
     private JLabel statsLabel;
 
 
@@ -25,13 +24,12 @@ public class StatsPanel extends JPanel {
         add(statsScrollPane);
         add(statsTextArea);
 
-        //statsTextArea.setText(iwm.toString());
+        statsTextArea.setText(iwm.toString());
         System.out.println(iwm.toString());
-
 
     }
 
-    public void setStatsTextArea(String text, String[] userNames, int conversionDurations, String time) {
-        statsTextArea.setText(text + "\n" + Arrays.toString(userNames) + "\n" + conversionDurations + "\n" + time);
+    public void setStatsTextArea(String text) {
+        statsTextArea.setText(text);
     }
 }

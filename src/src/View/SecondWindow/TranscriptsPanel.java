@@ -8,7 +8,6 @@ import java.awt.*;
 public class TranscriptsPanel extends JPanel {
     public static JList<String> transcriptsList = new JList<>();;
     private JLabel transcriptLabel;
-    private String text;
 
     InfoWindowManager iwm = new InfoWindowManager();
 
@@ -30,7 +29,6 @@ public class TranscriptsPanel extends JPanel {
                 String name = fileName.replace(".txt", "");
                 System.out.println(name);
                 iwm.AudioInfoSearcher(name);
-
             }
         });
     }

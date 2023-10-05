@@ -19,7 +19,6 @@ public class InfoWindowManager {
     private String time;
 
     UserInfo userInfo;
-    StatsPanel statsPanel = new StatsPanel();
 
     public void listFilesInFolder(String name, JList listField) {
 
@@ -107,15 +106,10 @@ public class InfoWindowManager {
                         System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
                         userNames=audioObject.getAsJsonArray("userNames").toString().split(",");
 
-
                         // Ispis "audioNames"
                         System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
-                        statsPanel.setStatsTextArea(keySet, userNames, conversionDurations, time);
-
-
 
                         //System.out.println("jel puni " + keySet + " " + Arrays.toString(userNames) + " " + conversionDurations + " " + time);
-
 
                     }
                 }
