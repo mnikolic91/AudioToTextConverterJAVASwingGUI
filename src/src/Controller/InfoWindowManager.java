@@ -23,7 +23,6 @@ public class InfoWindowManager {
     public void listFilesInFolder(String name, JList listField) {
 
 
-
         //folder objekt kojem pridruzujemo putanju
         File folder = new File(userInfo.getTranscriptFolder() + "\\" + name + "\\");
         //provjera da li folder postoji
@@ -96,15 +95,15 @@ public class InfoWindowManager {
                     if (found) {
                         // Ovdje možete ispisati URL
                         System.out.println("URL: " + key);
-                        keySet=key;
+                        keySet = key;
 
                         // Ispis ostalih vrijednosti iz objekta
                         System.out.println("startTime: " + audioObject.get("time").getAsString());
-                        time=audioObject.get("time").getAsString();
+                        time = audioObject.get("time").getAsString();
                         System.out.println("conversionDuration: " + audioObject.get("conversionDuration").getAsInt());
-                        conversionDurations=audioObject.get("conversionDuration").getAsInt();
+                        conversionDurations = audioObject.get("conversionDuration").getAsInt();
                         System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
-                        userNames=audioObject.getAsJsonArray("userNames").toString().split(",");
+                        userNames = audioObject.getAsJsonArray("userNames").toString().split(",");
 
                         // Ispis "audioNames"
                         System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
@@ -123,12 +122,11 @@ public class InfoWindowManager {
 
     @Override
     public String toString() {
-        return "InfoWindowManager{" +
-                "key='" + keySet + '\'' +
-                ", userNames=" + Arrays.toString(userNames) +
-                ", conversionDurations=" + conversionDurations +
-                ", time='" + time + '\'' +
-                '}';
+        return "Original link to the audio: " + keySet + '\'' +
+                ",\n Your audio conversion  started at: '" + time + '\'' +
+                ",\n Users that also converted this audio: " + Arrays.toString(userNames) +
+                ",\n Average conversion duration for this audio: " + conversionDurations + " seconds" +
+                '.';
     }
 }
 

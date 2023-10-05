@@ -32,7 +32,7 @@ public class InfoWindow extends JFrame {
 
         // Panel za transkripte
         transcriptsPanel = new TranscriptsPanel();
-        transcriptsPanel.setPreferredSize(new Dimension(80, 350));
+        transcriptsPanel.setPreferredSize(new Dimension(150, 350));
         // Dodajte stavke u comboBox unutar transcriptsPanel prema vašim potrebama
 
         // Postavljanje rasporeda za glavni prozor

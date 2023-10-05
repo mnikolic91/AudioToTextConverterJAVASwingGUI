@@ -1,4 +1,3 @@
-import Controller.AudioInputManager;
 import View.IndexWindow.MainWindow;
 import View.SecondWindow.InfoWindow;
 
@@ -7,10 +6,6 @@ public class Main {
         MainWindow main = new MainWindow();
 
         //InfoWindow info = new InfoWindow();
-
-
-
-
 
         //registracija korisnika koji žele transformirati audio u tekst DONE
         //korisnik vidi ime audia(link) koji je transformirao, vrijeme kad je započeo transformaciju i koliko je dugo trajala, te tekst transfomracije

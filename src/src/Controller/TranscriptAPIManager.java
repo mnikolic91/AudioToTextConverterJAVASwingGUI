@@ -104,6 +104,16 @@ public class TranscriptAPIManager {
                 // Kreirajte File objekt za putanju datoteke
                 File transcriptFile = new File(filePath + "\\" + UserInfo.nickname + "\\" + AudioInfo.audioName + ".txt");
 
+                // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+                if (!transcriptFile.exists()) {
+                    try {
+                        transcriptFile.createNewFile(); // Stvaramo datoteku ako ne postoji
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 try {
                     // Otvaramo buffered writer gdje ćemo zapisivati naš transkript
                     BufferedWriter writer = new BufferedWriter(new FileWriter(transcriptFile));

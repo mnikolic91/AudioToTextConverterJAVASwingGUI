@@ -3,7 +3,7 @@ package View.IndexWindow;
 import javax.swing.*;
 
 public class MainWindow {
-    private JFrame frame;
+    public JFrame frame;
     private LoginPanel loginPanel;
     private AudioInputPanel audioInfoInputPanel;
 
