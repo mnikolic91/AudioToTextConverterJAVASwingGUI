@@ -1,12 +1,10 @@
 # oop_final_pro_22_23
 ---
 
-Ime i prezime: Marija Nikolić
+Zavrsni projekt kolegija "Osnove objektnog programiranja"</br>
+Autorica Marija Nikolic</br>
 
-
-Preuzimanje Gson biblioteke:
-Idite na službenu web stranicu Gson na GitHubu (https://github.com/google/gson) i preuzmite JAR datoteku najnovije verzije Gson biblioteke. Alternativno, možete preuzeti Gson sa Maven Central Repository (https://search.maven.org/artifact/com.google.code.gson/gson) ili iz drugog izvora gdje se nalazi Gson JAR datoteka.
-
-Dodavanje Gson JAR datoteke u projekt:
-Nakon što preuzmete Gson JAR datoteku, morate je dodati u svoj projekt. 
-
+Za potrebe pregleda ovog rada potrebno je dodati Gson library <br>
+gson.jar datoteka se nalazi u projektu</br>
+Za dodati Gson u IntelliJ: </br>
+-File -> Project structure -> Libraries -> +(add) -> path to gson.jar
