@@ -9,18 +9,21 @@ import com.google.gson.JsonObject;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.Arrays;
 
 public class InfoWindowManager {
 
-    private StatsPanel statsPanel = new StatsPanel();
+    private String keySet;
+    private String[] userNames;
+    private int conversionDurations;
+    private String time;
 
-    private static String url;
-    private static String time;
-    private static int duration;
-    private static String[] userNames;
-
+    UserInfo userInfo;
+    StatsPanel statsPanel = new StatsPanel();
 
     public void listFilesInFolder(String name, JList listField) {
+
+
 
         //folder objekt kojem pridruzujemo putanju
         File folder = new File(userInfo.getTranscriptFolder() + "\\" + name + "\\");
@@ -94,24 +97,26 @@ public class InfoWindowManager {
                     if (found) {
                         // Ovdje možete ispisati URL
                         System.out.println("URL: " + key);
-                        url= key;
+                        keySet=key;
 
                         // Ispis ostalih vrijednosti iz objekta
                         System.out.println("startTime: " + audioObject.get("time").getAsString());
-                        time = audioObject.get("time").getAsString();
+                        time=audioObject.get("time").getAsString();
                         System.out.println("conversionDuration: " + audioObject.get("conversionDuration").getAsInt());
-                        duration = audioObject.get("conversionDuration").getAsInt();
+                        conversionDurations=audioObject.get("conversionDuration").getAsInt();
                         System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
-                        userNames = audioObject.getAsJsonArray("userNames").toString().split(",");
+                        userNames=audioObject.getAsJsonArray("userNames").toString().split(",");
+
 
                         // Ispis "audioNames"
                         System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
+                        statsPanel.setStatsTextArea(keySet, userNames, conversionDurations, time);
 
-                        StatsPanel.setStatsTextArea("Audio was transcribed under " + key + "\n"
-                                + "Other users that converted this same audio: " + audioObject.getAsJsonArray("userNames").toString().split(",") + "\n" +
-                                "You started your audio conversion at: " + audioObject.get("time").getAsString() + "\n" +
-                                "And it lasted for " + audioObject.get("conversionDuration").getAsInt() + " seconds.\n" +
-                                "You can find your transcript in the 'Transcripts' tab.");
+
+
+                        //System.out.println("jel puni " + keySet + " " + Arrays.toString(userNames) + " " + conversionDurations + " " + time);
+
+
                     }
                 }
             } else {
@@ -122,24 +127,14 @@ public class InfoWindowManager {
         }
     }
 
-    UserInfo userInfo;
-
-    public static String getUrl() {
-        return url;
+    @Override
+    public String toString() {
+        return "InfoWindowManager{" +
+                "key='" + keySet + '\'' +
+                ", userNames=" + Arrays.toString(userNames) +
+                ", conversionDurations=" + conversionDurations +
+                ", time='" + time + '\'' +
+                '}';
     }
-
-    public static String getTime() {
-        return time;
-    }
-
-    public static int getDuration() {
-        return duration;
-    }
-
-    public static String[] getUserNames() {
-        return userNames;
-    }
-
-
 }
 

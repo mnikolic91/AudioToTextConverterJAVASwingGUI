@@ -1,8 +1,5 @@
 package View.SecondWindow;
 
-import Controller.AudioInputManager;
-import Controller.InfoWindowManager;
-import Model.Transcript;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +14,5 @@ public class ViewPanel extends JPanel {
 
         viewTextPane.setEditable(false);
         viewTextPane.setFont(new Font("Serif", Font.PLAIN, 14));
-
     }
 }

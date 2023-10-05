@@ -1,20 +1,18 @@
 package View.SecondWindow;
 
+
 import Controller.InfoWindowManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class StatsPanel extends JPanel {
 
+    InfoWindowManager iwm = new InfoWindowManager();
 
-    private static JTextPane statsTextArea = new JTextPane();
+    private JTextArea statsTextArea= new JTextArea();;
     private JLabel statsLabel;
-
-    //method that sets the text in the statsTextArea
-    public static void setStatsTextArea(String text) {
-        statsTextArea.setText(text);
-    }
 
 
     public StatsPanel() {
@@ -24,10 +22,16 @@ public class StatsPanel extends JPanel {
         statsTextArea.setFont(new Font("Serif", Font.PLAIN, 14));
         JScrollPane statsScrollPane = new JScrollPane(statsTextArea);
         statsTextArea.setEditable(false);
-        add(statsLabel);
         add(statsScrollPane);
+        add(statsTextArea);
 
-        statsTextArea.setText("Your transcript statistics will be displayed here.");
+        //statsTextArea.setText(iwm.toString());
+        System.out.println(iwm.toString());
 
+
+    }
+
+    public void setStatsTextArea(String text, String[] userNames, int conversionDurations, String time) {
+        statsTextArea.setText(text + "\n" + Arrays.toString(userNames) + "\n" + conversionDurations + "\n" + time);
     }
 }

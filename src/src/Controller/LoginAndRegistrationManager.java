@@ -54,6 +54,17 @@ public class LoginAndRegistrationManager {
 
     //doesNicknameExists method that checks if the nickname already exists in the text file
     public boolean doesNicknameExists(String nickname) {
+        File file = new File("hashing.txt");
+
+        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader("hashing.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -71,6 +82,16 @@ public class LoginAndRegistrationManager {
 
     //saveHashAndSaltToTextFile method that saves the nickname, hashed password and salt to the text file
     public void saveHashAndSaltToTextFile(String nickname) {
+        File file = new File("hashing.txt");
+
+        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("hashing.txt", true))) {
                 String line = nickname + "," + userInfo.getPassword() + "," + userInfo.getSalt();
                 writer.write(line);
@@ -82,6 +103,16 @@ public class LoginAndRegistrationManager {
 
     //readHashAndSaltFromTextFile method that reads the nickname, hashed password and salt from the text file
     public Map<String, String> readHashAndSaltFromTextFile(String nickname) {
+        File file = new File("hashing.txt");
+
+        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Map<String, String> userData = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("hashing.txt"))) {
             String line;

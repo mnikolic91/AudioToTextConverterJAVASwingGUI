@@ -120,6 +120,16 @@ public class AudioInputManager {
 
     // Metoda koja sprema mapu u JSON datoteku
     private void saveJsonFile(Map<String, AudioInfo> data) {
+        File file = new File("AudioInfoMap.txt");
+
+        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try (Writer writer = new FileWriter("AudioInfoMap.txt")) {
             gson.toJson(data, writer);
         } catch (IOException e) {
@@ -129,6 +139,16 @@ public class AudioInputManager {
 
     // Metoda koja učitava podatke iz JSON datoteke
     private Map<String, AudioInfo> loadJsonFile() {
+        File file = new File("AudioInfoMap.txt");
+
+        // Provjerite postoji li datoteka, a ako ne postoji, stvorite je
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Stvaramo datoteku ako ne postoji
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try (Reader reader = new FileReader("AudioInfoMap.txt")) {
             Type type = new TypeToken<HashMap<String, AudioInfo>>() {}.getType();
             return gson.fromJson(reader, type);
