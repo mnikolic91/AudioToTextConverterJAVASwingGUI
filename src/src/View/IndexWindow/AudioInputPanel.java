@@ -31,7 +31,6 @@ public class AudioInputPanel extends JPanel {
     private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
     private InfoWindowManager iwm = new InfoWindowManager();
-    MainWindow mw = new MainWindow();
 
     public AudioInputPanel() {
 
@@ -106,8 +105,6 @@ public class AudioInputPanel extends JPanel {
 
                                     InfoWindow infoWindow = new InfoWindow();
                                     infoWindow.setVisible(true);
-
-
 
 
                                 } catch (URISyntaxException ex) {
