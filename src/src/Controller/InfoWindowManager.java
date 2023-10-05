@@ -1,25 +1,26 @@
 package Controller;
 
-import Model.Transcript;
 import Model.UserInfo;
-import View.SecondWindow.InfoWindow;
-import View.SecondWindow.TranscriptsPanel;
-import View.SecondWindow.ViewPanel;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import javax.swing.*;
 import java.io.*;
 
 public class InfoWindowManager {
 
-    InfoWindow infoWindow;
-    ViewPanel viewPanel;
-    Transcript transcript;
-    UserInfo userInfo;
+    private static String url;
+    private static String time;
+    private static int duration;
+    private static String[] userNames;
+
 
     public void listFilesInFolder(String name, JList listField) {
 
         //folder objekt kojem pridruzujemo putanju
-        File folder = new File( userInfo.getTranscriptFolder() + "\\" + name + "\\");
+        File folder = new File(userInfo.getTranscriptFolder() + "\\" + name + "\\");
         //provjera da li folder postoji
         if (!folder.exists()) {
             folder.mkdirs();
@@ -65,6 +66,70 @@ public class InfoWindowManager {
     }
 
 
+    public void AudioInfoSearcher(String audioNameToSearch) {
+        String filePath = "AudioInfoMap.txt";
+
+        try (FileReader reader = new FileReader(filePath)) {
+            Gson gson = new Gson();
+            JsonObject audioInfoMap = gson.fromJson(reader, JsonObject.class);
+
+            if (audioInfoMap != null) {
+                for (String key : audioInfoMap.keySet()) {
+                    JsonObject audioObject = audioInfoMap.getAsJsonObject(key);
+                    JsonArray audioNamesList = audioObject.getAsJsonArray("audioNames");
+                    boolean found = false;
+
+                    if (audioNamesList != null) {
+                        for (JsonElement element : audioNamesList) {
+                            if (element.getAsString().equals(audioNameToSearch)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (found) {
+                        // Ovdje možete ispisati URL
+                        System.out.println("URL: " + key);
+                        url= key;
+
+                        // Ispis ostalih vrijednosti iz objekta
+                        System.out.println("startTime: " + audioObject.get("time").getAsString());
+                        time = audioObject.get("time").getAsString();
+                        System.out.println("conversionDuration: " + audioObject.get("conversionDuration").getAsInt());
+                        duration = audioObject.get("conversionDuration").getAsInt();
+                        System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
+                        userNames = audioObject.getAsJsonArray("userNames").toString().split(",");
+
+                        // Ispis "audioNames"
+                        System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
+                    }
+                }
+            } else {
+                System.out.println("Nije moguće učitati JSON datoteku.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    UserInfo userInfo;
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getTime() {
+        return time;
+    }
+
+    public static int getDuration() {
+        return duration;
+    }
+
+    public static String[] getUserNames() {
+        return userNames;
+    }
 
 
 }

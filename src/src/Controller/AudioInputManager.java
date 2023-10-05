@@ -107,7 +107,7 @@ public class AudioInputManager {
 
 
                 }
-                else if ( !existingValue.getAudioNames().contains(AudioInfo.audioName)) {
+                if ( !existingValue.getAudioNames().contains(AudioInfo.audioName)) {
                     existingValue.getAudioNames().add(AudioInfo.audioName);
                 }
             }

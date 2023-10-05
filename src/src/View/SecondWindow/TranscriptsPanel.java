@@ -24,11 +24,13 @@ public class TranscriptsPanel extends JPanel {
 
         transcriptsList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                String name = transcriptsList.getSelectedValue();
-                iwm.showTextInViewPanel(name, ViewPanel.viewTextPane);
+                String fileName = transcriptsList.getSelectedValue();
+                iwm.showTextInViewPanel(fileName, ViewPanel.viewTextPane);
+                String name = fileName.replace(".txt", "");
+                System.out.println(name);
+                iwm.AudioInfoSearcher(name);
+
             }
         });
-
     }
-
 }

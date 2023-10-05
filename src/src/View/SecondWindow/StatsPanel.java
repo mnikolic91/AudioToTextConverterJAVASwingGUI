@@ -1,13 +1,13 @@
 package View.SecondWindow;
 
-import Controller.AudioInputManager;
+import Controller.InfoWindowManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class StatsPanel extends JPanel {
 
-    AudioInputManager aim = new AudioInputManager();
+
     private JTextArea statsTextArea;
     private JLabel statsLabel;
 
@@ -24,7 +24,11 @@ public class StatsPanel extends JPanel {
         add(statsLabel);
         add(statsScrollPane);
 
-        //fill statsTextArea with toString of AudioInfo
-        statsTextArea.setText(aim.toString());
+        statsTextArea.setText("This audio was transcribed under " + InfoWindowManager.getUrl() + "\n"
+        + "Other users that converted this same audio: " + InfoWindowManager.getUserNames() + "\n" +
+                "You started your audio conversion at: " + InfoWindowManager.getTime() + "\n" +
+                "And it lasted for " + InfoWindowManager.getDuration() + " seconds.\n" +
+                "You can find your transcript in the 'Transcripts' tab.");
+
     }
 }
