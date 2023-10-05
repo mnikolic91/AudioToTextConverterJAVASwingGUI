@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.UserInfo;
+import View.SecondWindow.StatsPanel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -10,6 +11,8 @@ import javax.swing.*;
 import java.io.*;
 
 public class InfoWindowManager {
+
+    private StatsPanel statsPanel = new StatsPanel();
 
     private static String url;
     private static String time;
@@ -103,6 +106,12 @@ public class InfoWindowManager {
 
                         // Ispis "audioNames"
                         System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
+
+                        StatsPanel.setStatsTextArea("Audio was transcribed under " + key + "\n"
+                                + "Other users that converted this same audio: " + audioObject.getAsJsonArray("userNames").toString().split(",") + "\n" +
+                                "You started your audio conversion at: " + audioObject.get("time").getAsString() + "\n" +
+                                "And it lasted for " + audioObject.get("conversionDuration").getAsInt() + " seconds.\n" +
+                                "You can find your transcript in the 'Transcripts' tab.");
                     }
                 }
             } else {

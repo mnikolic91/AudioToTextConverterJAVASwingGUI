@@ -10,6 +10,7 @@ public class TranscriptsPanel extends JPanel {
     private JLabel transcriptLabel;
 
     InfoWindowManager iwm = new InfoWindowManager();
+    StatsPanel statsPanel = new StatsPanel();
 
     public TranscriptsPanel() {
         setLayout(new BorderLayout());
@@ -29,6 +30,7 @@ public class TranscriptsPanel extends JPanel {
                 String name = fileName.replace(".txt", "");
                 System.out.println(name);
                 iwm.AudioInfoSearcher(name);
+
 
             }
         });
