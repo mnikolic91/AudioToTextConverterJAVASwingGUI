@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.AudioInfo;
-import Model.Transcript;
 import Model.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class AudioInputManager {
 
     private static Gson gson = new Gson();
@@ -22,7 +20,7 @@ public class AudioInputManager {
     private AudioInfo audioInfo = new AudioInfo();
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
     private UserInfo userInfo = new UserInfo();
-    private Transcript transcript = new Transcript();
+
 
     public static int generateUniqueValue() {
         int uniqueValue = (int) (Math.random() * 90000) + 10000;
@@ -70,6 +68,12 @@ public class AudioInputManager {
 
     public void addAudioName(String audioName) {
         audioInfo.getAudioNames().add(audioName);
+    }
+
+    //method that returns the toString method from audio info
+    public String toString() {
+        System.out.println(audioInfo.toString());
+        return audioInfo.toString();
     }
 
     //method that catches the time of conversion
@@ -133,6 +137,4 @@ public class AudioInputManager {
             return new HashMap<>();
         }
     }
-
-
 }

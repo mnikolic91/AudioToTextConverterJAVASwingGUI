@@ -1,7 +1,6 @@
 package View.SecondWindow;
 
 import Controller.AudioInputManager;
-import Model.AudioInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +8,6 @@ import java.awt.*;
 public class StatsPanel extends JPanel {
 
     AudioInputManager aim = new AudioInputManager();
-    AudioInfo ai = new AudioInfo();
     private JTextArea statsTextArea;
     private JLabel statsLabel;
 
@@ -26,7 +24,7 @@ public class StatsPanel extends JPanel {
         add(statsLabel);
         add(statsScrollPane);
 
-        //fill statsTextArea with random text
-        statsTextArea.setText(ai.toString());
+        //fill statsTextArea with toString of AudioInfo
+        statsTextArea.setText(aim.toString());
     }
 }

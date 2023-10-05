@@ -100,12 +100,13 @@ public class AudioInfo {
 
     @Override
     public String toString() {
-        return "Your audio transcript stats: " +
-                ", startTime=" + time +
+        return "AudioInfo{" +
+                "time='" + time + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 ", conversionDuration=" + conversionDuration +
-                ", other users that converted the same audio =" + userNames +
-                "";
+                ", userNames=" + userNames +
+                ", audioNames=" + audioNames +
+                '}';
     }
-
-
 }

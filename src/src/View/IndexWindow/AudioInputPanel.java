@@ -4,7 +4,6 @@ import Controller.AudioInputManager;
 import Controller.InfoWindowManager;
 import Controller.LoginAndRegistrationManager;
 import Controller.TranscriptAPIManager;
-import Model.AudioInfo;
 import Model.UserInfo;
 import View.SecondWindow.InfoWindow;
 import View.SecondWindow.TranscriptsPanel;
@@ -30,7 +29,6 @@ public class AudioInputPanel extends JPanel {
     private TranscriptAPIManager tapim = new TranscriptAPIManager();
     private LoginAndRegistrationManager lorm = new LoginAndRegistrationManager();
     private AudioInputManager aim = new AudioInputManager();
-    private AudioInfo ai = new AudioInfo();
     private InfoWindowManager iwm = new InfoWindowManager();
 
     public AudioInputPanel() {
