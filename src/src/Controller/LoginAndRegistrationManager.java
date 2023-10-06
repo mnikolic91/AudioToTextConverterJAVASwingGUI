@@ -20,13 +20,7 @@ public class LoginAndRegistrationManager {
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    /**
-     * This method sends post request to the server.
-     * @param nickname
-     * @param password
-     * @param salt
-     * @return
-     */
+
     public void generateRandomString() {
         SecureRandom random = new SecureRandom();
         StringBuilder salt = new StringBuilder();
@@ -42,7 +36,7 @@ public class LoginAndRegistrationManager {
     /**
      * This method does hashing.
      * @param password
-     * @return
+ 
      */
     public String doHashing(String password) {
         userInfo.setPassword(password + userInfo.getSalt());

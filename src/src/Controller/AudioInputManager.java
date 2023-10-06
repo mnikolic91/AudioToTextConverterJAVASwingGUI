@@ -97,7 +97,6 @@ public class AudioInputManager {
 
     /**
      * method that catches the date and time of conversion
-     * @return date and time of conversion
      */
     public void addOrUpdateAudioInfo() {
         if (audioInfo.getAudio_url() != null && tapim.isIsTranscripted()) {
