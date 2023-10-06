@@ -1,10 +1,7 @@
 package Controller;
 
 import Model.UserInfo;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+
 
 import javax.swing.*;
 import java.io.*;
@@ -18,10 +15,10 @@ import java.util.Arrays;
  */
 public class InfoWindowManager {
 
-    private String keySet;
-    private String[] userNames;
-    private int conversionDurations;
-    private String time;
+    private static String keySet="temp";
+    private static String[] userNames={"temp"};
+    private static int conversionDurations=0;
+    private static String time="temp";
 
     UserInfo userInfo;
 
@@ -87,52 +84,38 @@ public class InfoWindowManager {
      * Constructor for the InfoWindowManager class.
      * It initializes the userInfo object.
      */
-    public void AudioInfoSearcher(String audioNameToSearch) {
-        String filePath = "AudioInfoMap.txt";
 
-        try (FileReader reader = new FileReader(filePath)) {
-            Gson gson = new Gson();
-            JsonObject audioInfoMap = gson.fromJson(reader, JsonObject.class);
 
-            if (audioInfoMap != null) {
-                for (String key : audioInfoMap.keySet()) {
-                    JsonObject audioObject = audioInfoMap.getAsJsonObject(key);
-                    JsonArray audioNamesList = audioObject.getAsJsonArray("audioNames");
-                    boolean found = false;
+    public String getKeySet() {
+        return keySet;
+    }
 
-                    if (audioNamesList != null) {
-                        for (JsonElement element : audioNamesList) {
-                            if (element.getAsString().equals(audioNameToSearch)) {
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
+    public String getUserNames() {
+        return Arrays.toString(userNames);
+    }
 
-                    if (found) {
-                        System.out.println("URL: " + key);
-                        keySet = key;
+    public int getConversionDurations() {
+        return conversionDurations;
+    }
 
-                        // Ispis ostalih vrijednosti iz objekta
-                        System.out.println("startTime: " + audioObject.get("time").getAsString());
-                        time = audioObject.get("time").getAsString();
-                        System.out.println("conversionDuration: " + audioObject.get("conversionDuration").getAsInt());
-                        conversionDurations = audioObject.get("conversionDuration").getAsInt();
-                        System.out.println("userNames: " + audioObject.getAsJsonArray("userNames").toString());
-                        userNames = audioObject.getAsJsonArray("userNames").toString().split(",");
+    public String getTime() {
+        return time;
+    }
 
-                        System.out.println("Pronađeni audioNames: " + audioNamesList.toString());
+    public static void setKeySet(String keySet) {
+        InfoWindowManager.keySet = keySet;
+    }
 
-                        //System.out.println("jel puni " + keySet + " " + Arrays.toString(userNames) + " " + conversionDurations + " " + time);
+    public static void setUserNames(String[] userNames) {
+        InfoWindowManager.userNames = userNames;
+    }
 
-                    }
-                }
-            } else {
-                System.out.println("Nije moguće učitati JSON datoteku.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void setConversionDurations(int conversionDurations) {
+        InfoWindowManager.conversionDurations = conversionDurations;
+    }
+
+    public static void setTime(String time) {
+        InfoWindowManager.time = time;
     }
 
     @Override
